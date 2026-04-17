@@ -1,0 +1,8 @@
+{
+  "name": "Sustain MVP",
+  "description": "A sustainability tracking and community app that rewards eco-friendly actions using Gemini AI for insights and image analysis.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

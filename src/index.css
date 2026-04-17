@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Primary Colors */
+    --forest-deep: #064E3B;
+    --forest-medium: #065F46;
+    --forest-light: #10B981;
+    --emerald: #34D399;
+    
+    /* Accent Colors */
+    --amber: #F59E0B;
+    --amber-light: #FCD34D;
+    --terracotta: #C17F59;
+    --terracotta-dark: #A66B47;
+    --teal: #2C5F68;
+    --teal-light: #4A8A94;
+    
+    /* SDG Colors */
+    --sdg-1: #E5243B; --sdg-2: #DDA63A; --sdg-3: #4C9F38; --sdg-4: #C5192D;
+    --sdg-5: #FF3A21; --sdg-6: #26BDE2; --sdg-7: #FCC30B; --sdg-8: #A21942;
+    --sdg-9: #FD6925; --sdg-10: #DD1367; --sdg-11: #FD9D24; --sdg-12: #BF8B2E;
+    --sdg-13: #3F7E44; --sdg-14: #0A97D9; --sdg-15: #56C02B; --sdg-16: #00689D; --sdg-17: #19486A;
+    
+    /* Neutral Colors */
+    --bg-primary: #F9FAFB;
+    --bg-secondary: #FFFFFF;
+    --bg-tertiary: #F3F4F6;
+    --text-primary: #111827;
+    --text-secondary: #4B5563;
+    --text-muted: #9CA3AF;
+    --border-light: #E5E7EB;
+    
+    /* Semantic */
+    --error: #EF4444;
+    --success: #10B981;
+    --info: #3B82F6;
+  }
+
+  body {
+    @apply font-inter bg-gray-900 m-0 p-0 overflow-hidden h-screen w-screen;
+  }
+
+  /* Keep all fixed overlays/nav within the mobile simulator frame. */
+  #root {
+    position: relative;
+    isolation: isolate;
+    transform: translateZ(0);
+  }
+}
+
+@layer components {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+
+/* Phase 5C & 5G: POD Accessibility Styles */
+/* .high-contrast legacy block replaced by .hc-mode */
+
+.hc-mode {
+  --bg-primary: #000000 !important;
+  --bg-secondary: #000000 !important;
+  --bg-tertiary: #000000 !important;
+  --text-primary: #FFFFFF !important;
+  --text-secondary: #DDDDDD !important;
+  --text-muted: #BBBBBB !important;
+  --border-light: #FFFFFF !important;
+  
+  /* High visibility colors */
+  --forest-deep: #FFFF00 !important;
+  --forest-medium: #FFFF00 !important;
+  --forest-light: #FFFF00 !important;
+  --emerald: #FFFF00 !important;
+  --teal: #00FFFF !important;
+  --amber: #FF00FF !important; /* Magenta for contrast */
+}
+
+/* Ensure distinct borders in high contrast */
+.hc-mode .shadow-sm, 
+.hc-mode .shadow-md, 
+.hc-mode .shadow-lg, 
+.hc-mode .shadow-xl {
+  box-shadow: none !important;
+  border: 2px solid #FFFFFF !important;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.reduced-motion *, .reduced-motion ::before, .reduced-motion ::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Text Scaling */
+html {
+  font-size: calc(16px * var(--text-scale, 1));
+}
+
+/* Global bottom cushion for modals */
+.modal-cushion {
+  padding-bottom: 5rem !important; /* 80px cushion */
+}
