@@ -37,8 +37,27 @@ const WalletScreen: React.FC<Props> = ({ goBack }) => {
   };
 
   return (
-    <div className="bg-[var(--bg-primary)] min-h-full pb-32">
-      <div className="p-6">
+    <div className="bg-[var(--bg-primary)] h-full relative flex flex-col font-jakarta">
+      {/* STICKY GLASS HEADER */}
+      <div className="sticky top-0 z-40 bg-white/70 backdrop-blur-xl pt-12 pb-2 px-6 border-b border-white/20 transition-all">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-3">
+             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center text-white shadow-lg">
+                <i className="fas fa-wallet"></i>
+             </div>
+             <div>
+                <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Financials</div>
+                <h1 className="text-xl font-black text-slate-800 tracking-tight">My Wallet</h1>
+             </div>
+          </div>
+          <button onClick={goBack} className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-400 border border-slate-100 shadow-sm active:scale-95">
+            <i className="fas fa-chevron-left"></i>
+          </button>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto no-scrollbar pb-10">
+        <div className="p-6">
         {/* Main Balance Card */}
         <div className="bg-gradient-to-br from-[#1E293B] to-[#0F172A] rounded-[32px] p-8 text-white text-center shadow-xl shadow-slate-900/20 mb-6 relative overflow-hidden">
            <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/10 rounded-full blur-[60px] pointer-events-none"></div>
@@ -248,6 +267,7 @@ const WalletScreen: React.FC<Props> = ({ goBack }) => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

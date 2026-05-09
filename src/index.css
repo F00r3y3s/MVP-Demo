@@ -40,14 +40,22 @@
   }
 
   body {
-    @apply font-inter bg-gray-900 m-0 p-0 overflow-hidden h-screen w-screen;
+    /* Body styling is handled by the iPhone frame in index.html */
+    @apply font-inter;
+    margin: 0;
+    padding: 0;
   }
 
-  /* Keep all fixed overlays/nav within the mobile simulator frame. */
+  /* #root is positioned absolute inside .phone-screen by index.html frame CSS.
+     All fixed/sticky children must be contained within this stacking context. */
   #root {
-    position: relative;
+    position: absolute;
+    inset: 0;
     isolation: isolate;
     transform: translateZ(0);
+    overflow: hidden;
+    /* App background */
+    background-color: #F9FAFB;
   }
 }
 

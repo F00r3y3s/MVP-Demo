@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { USER_NAME } from '../constants';
 
 interface Award {
     id: number;
@@ -30,7 +31,7 @@ const RewardView: React.FC = () => {
         { rank: 2, name: 'Fatima Al Zaabi', badge: 'Green Champion', points: '12,850', avatar: 'FZ', color: 'bg-slate-400', isUser: false },
         { rank: 3, name: 'Khalid Al Sharqi', badge: 'Sustainability Hero', points: '10,400', avatar: 'KS', color: 'bg-orange-700', isUser: false },
         { rank: 4, name: 'Mariam Al Falasi', badge: 'Member', points: '8,900', avatar: 'MF', color: 'bg-teal-600', isUser: false },
-        { rank: 12, name: 'Sarah Johnson', badge: 'Mentor', points: '2,850', avatar: 'SJ', color: 'bg-green-600', isUser: true },
+        { rank: 12, name: USER_NAME, badge: 'Mentor', points: '2,850', avatar: 'NZ', color: 'bg-green-600', isUser: true },
     ];
 
     const awards: Award[] = [

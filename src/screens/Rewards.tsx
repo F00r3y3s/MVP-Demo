@@ -66,7 +66,7 @@ const RewardsScreen: React.FC<Props> = ({ onNavigate, goBack }) => {
 
   return (
     <div className="bg-[var(--bg-primary)] h-full relative flex flex-col">
-      <div className="sticky top-0 z-40 bg-[var(--bg-primary)]/95 backdrop-blur-xl border-b border-[var(--border-light)]/50 pt-12 pb-2 px-6">
+      <div className="sticky top-0 z-40 bg-white/70 backdrop-blur-xl border-b border-white/20 pt-12 pb-2 px-6">
         <div className="flex items-center justify-between mb-4">
           <button onClick={goBack} className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-400 hover:text-emerald-600 transition-all border border-slate-100 shadow-sm">
             <i className="fas fa-chevron-left text-xs"></i>
@@ -113,7 +113,7 @@ const RewardsScreen: React.FC<Props> = ({ onNavigate, goBack }) => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto no-scrollbar pb-32">
+      <div className="flex-1 overflow-y-auto no-scrollbar pb-10">
         {tabMode === 'wallet' && (
           <div className="p-6 space-y-6 animate-[fadeIn_0.3s_ease-out]">
             <div className="bg-gradient-to-br from-[#1E293B] to-[#0F172A] rounded-[32px] p-8 text-white text-center shadow-xl shadow-emerald-900/20 relative overflow-hidden">

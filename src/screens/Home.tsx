@@ -5,9 +5,10 @@ import { ScreenName, Challenge } from '../types';
 import { useAccessibility } from '../context/AccessibilityContext';
 import { useOrganization } from '../context/OrganizationContext';
 import aiRobot from '../assets/ai_robot.png';
-import { USER_IMAGE_URL } from '../constants';
+import { USER_IMAGE_URL, USER_NAME } from '../constants';
 import { SDG_ACTIVITIES, MAX_ACTIVE_TASKS } from '../data/sdgActivities';
 import { EVENTS } from '../data/events'; // Phase 7
+import mbzPhoto from '../assets/mbz_photo.png';
 
 interface Props {
    onNavigate: (screen: ScreenName) => void;
@@ -269,7 +270,7 @@ const HomeScreen: React.FC<Props> = ({ onNavigate }) => {
    const activeGameEvent = EVENTS.find(e => e.isActive);
 
    return (
-      <div className="px-5 space-y-5 pb-20 pt-16 sm:pt-6 bg-[var(--bg-primary)] h-auto" onClick={() => setShowStatusMenu(false)}>
+      <div className="px-5 space-y-5 pb-10 pt-4 bg-[var(--bg-primary)] h-auto" onClick={() => setShowStatusMenu(false)}>
 
          {/* 1. UNIFIED USER CARD (Original Design) */}
          <div className="relative w-full">
@@ -318,7 +319,7 @@ const HomeScreen: React.FC<Props> = ({ onNavigate }) => {
                   </div>
                   <div className="min-w-0">
                      <div className="text-[9px] font-black text-emerald-600 tracking-widest uppercase leading-none mb-0.5">{greeting}</div>
-                     <h2 className="text-slate-800 font-bold font-jakarta text-lg leading-tight">Sarah Johnson</h2>
+                     <h2 className="text-slate-800 font-bold font-jakarta text-lg leading-tight">{USER_NAME}</h2>
                      <div className="flex items-center gap-2 mt-1">
                         <span className="text-[8px] font-black bg-blue-600 text-white px-2 py-px rounded shadow-sm">LVL 12</span>
                         <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wide">Pro Impact</span>
@@ -356,95 +357,17 @@ const HomeScreen: React.FC<Props> = ({ onNavigate }) => {
                         onClick={() => setIsOrgView(true)}
                         className={`flex-1 py-1.5 rounded-full text-[9px] font-black uppercase tracking-wider transition-all flex items-center justify-center gap-1 ${isOrgView ? 'bg-blue-600 text-white shadow-sm' : 'bg-slate-100 text-slate-400 hover:text-slate-600'}`}
                      >
-                        {organization?.logo} Org
+                         {isOrgView ? organization?.shortName || 'Org' : 'Org'}
                      </button>
                   </div>
                )}
             </div>
          </div>
 
-
-
-         {/* --- ORGANIZATION DASHBOARD VIEW --- */}
-         {isOrgView && isLinked && organization ? (
-            <div className="space-y-6 animate-[fadeIn_0.3s_ease-out]">
-               {/* Org Impact Hero */}
-               <div className="bg-gradient-to-br from-slate-900 to-blue-900 rounded-[32px] p-6 text-white shadow-xl relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px]"></div>
-                  <div className="relative z-10">
-                     <div className="flex items-center gap-3 mb-6">
-                        <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-2xl border border-white/10 shadow-lg">
-                           {organization.logo}
-                        </div>
-                        <div>
-                           <h2 className="text-xl font-black font-jakarta leading-none mb-1">{organization.name}</h2>
-                           <div className="flex items-center gap-2">
-                              <span className="text-[10px] font-bold text-blue-200 uppercase tracking-widest">{department} Department</span>
-                              <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 text-[9px] font-black rounded-full uppercase border border-emerald-500/30">Verified Partner</span>
-                           </div>
-                        </div>
-                     </div>
-
-                     <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-white/10 rounded-2xl p-4 border border-white/5 backdrop-blur-sm">
-                           <div className="flex items-center gap-2 mb-2">
-                              <i className="fas fa-tree text-emerald-400"></i>
-                              <span className="text-[10px] font-bold text-blue-100 uppercase tracking-wider">Total Trees</span>
-                           </div>
-                           <div className="text-2xl font-black">1,250</div>
-                           <div className="text-[9px] text-blue-200 mt-1">Goal: 5,000 by 2026</div>
-                        </div>
-                        <div className="bg-white/10 rounded-2xl p-4 border border-white/5 backdrop-blur-sm">
-                           <div className="flex items-center gap-2 mb-2">
-                              <i className="fas fa-bolt text-amber-400"></i>
-                              <span className="text-[10px] font-bold text-blue-100 uppercase tracking-wider">Energy Saved</span>
-                           </div>
-                           <div className="text-2xl font-black">85k <span className="text-sm font-bold text-blue-300">kWh</span></div>
-                           <div className="text-[9px] text-blue-200 mt-1">-12% vs Last Year</div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-
-               {/* Team Activity Widget */}
-               <div className="bg-white rounded-[28px] p-5 shadow-sm border border-slate-100">
-                  <div className="flex justify-between items-center mb-4">
-                     <h3 className="font-black text-slate-800 text-xs uppercase tracking-widest flex items-center gap-2">
-                        <i className="fas fa-users text-blue-600"></i> Team Activity
-                     </h3>
-                     <span className="text-[9px] font-bold bg-blue-50 text-blue-600 px-2 py-1 rounded-full">{team?.name || 'My Team'}</span>
-                  </div>
-                  <div className="space-y-4">
-                     {[
-                        { user: 'Ahmed', action: 'completed Office Recycling', time: '10m ago', icon: 'fa-recycle', color: 'bg-green-100 text-green-600' },
-                        { user: 'Sarah', action: 'logged Carpool Commute', time: '1h ago', icon: 'fa-car-side', color: 'bg-blue-100 text-blue-600' },
-                        { user: 'Mike', action: 'turned off Meeting Room AC', time: '2h ago', icon: 'fa-wind', color: 'bg-purple-100 text-purple-600' }
-                     ].map((act, i) => (
-                        <div key={i} className="flex items-center gap-3">
-                           <div className={`w-10 h-10 rounded-xl ${act.color} flex items-center justify-center text-sm`}>
-                              <i className={`fas ${act.icon}`}></i>
-                           </div>
-                           <div className="flex-1">
-                              <div className="text-xs font-bold text-slate-800"><span className="text-blue-600">{act.user}</span> {act.action}</div>
-                              <div className="text-[9px] font-medium text-slate-400">{act.time}</div>
-                           </div>
-                           <button className="w-8 h-8 rounded-full bg-slate-50 text-slate-400 hover:text-red-500 hover:bg-red-50 flex items-center justify-center transition-colors">
-                              <i className="far fa-heart"></i>
-                           </button>
-                        </div>
-                     ))}
-                  </div>
-                  <button onClick={() => onNavigate(ScreenName.COMMUNITY)} className="w-full mt-4 py-3 bg-slate-50 text-slate-600 rounded-xl text-[10px] font-bold uppercase tracking-wider hover:bg-slate-100 transition-colors">
-                     View All Team Updates
-                  </button>
-               </div>
-            </div>
-         ) : null}
-
          {/* 1. COMPACT SDG PROGRESS (VERTICAL BARS RESTORED) */}
          <div
             onClick={() => onNavigate(ScreenName.SDG_DETAILS)}
-            className="bg-white/80 border border-white shadow-sm rounded-[24px] p-4 backdrop-blur-md cursor-pointer hover:shadow-md transition-all active:scale-[0.98]"
+            className="bg-white/80 border border-white shadow-sm rounded-[24px] p-4 backdrop-blur-md cursor-pointer hover:shadow-md transition-all active:scale-[0.98] mb-5"
          >
             <div className="flex justify-between items-center mb-3 px-1">
                <div>
@@ -480,6 +403,85 @@ const HomeScreen: React.FC<Props> = ({ onNavigate }) => {
                ))}
             </div>
          </div>
+
+         {/* --- ORGANIZATION DASHBOARD VIEW --- */}
+         {isOrgView && isLinked && organization ? (
+            <div className="space-y-6 animate-[fadeIn_0.3s_ease-out]">
+               {/* Org Impact Hero */}
+               <div className="bg-gradient-to-br from-slate-900 to-blue-900 rounded-[32px] p-6 text-white shadow-xl relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px]"></div>
+                  <div className="relative z-10">
+                     <div className="flex items-center gap-3 mb-6">
+                        <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-3xl border border-white/10 shadow-lg">
+                            {organization.logo}
+                         </div>
+                         <div>
+                            <h2 className="text-xl font-black font-jakarta leading-none mb-0.5">{organization.shortName || organization.name}</h2>
+                            <p className="text-[9px] font-medium text-blue-200 leading-tight mb-1 max-w-[180px]">{organization.shortName ? organization.name : ''}</p>
+                            <div className="flex items-center gap-2">
+                               <span className="text-[10px] font-bold text-blue-200 uppercase tracking-widest">{department} Department</span>
+                               <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 text-[9px] font-black rounded-full uppercase border border-emerald-500/30">Verified Partner</span>
+                            </div>
+                         </div>
+                     </div>
+
+                     <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-white/10 rounded-2xl p-4 border border-white/5 backdrop-blur-sm">
+                           <div className="flex items-center gap-2 mb-2">
+                              <i className="fas fa-tree text-emerald-400"></i>
+                              <span className="text-[10px] font-bold text-blue-100 uppercase tracking-wider">Total Trees</span>
+                           </div>
+                           <div className="text-2xl font-black">1,250</div>
+                           <div className="text-[9px] text-blue-200 mt-1">Goal: 5,000 by 2026</div>
+                        </div>
+                        <div className="bg-white/10 rounded-2xl p-4 border border-white/5 backdrop-blur-sm">
+                           <div className="flex items-center gap-2 mb-2">
+                              <i className="fas fa-bolt text-amber-400"></i>
+                              <span className="text-[10px] font-bold text-blue-100 uppercase tracking-wider">Energy Saved</span>
+                           </div>
+                           <div className="text-2xl font-black">85k <span className="text-sm font-bold text-blue-300">kWh</span></div>
+                           <div className="text-[9px] text-blue-200 mt-1">-12% vs Last Year</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               {/* Team Activity Widget */}
+               <div className="bg-white rounded-[28px] p-5 shadow-sm border border-slate-100">
+                  <div className="flex justify-between items-center mb-4">
+                     <h3 className="font-black text-slate-800 text-xs uppercase tracking-widest flex items-center gap-2">
+                        <i className="fas fa-users text-blue-600"></i> Team Activity
+                     </h3>
+                     <span className="text-[9px] font-bold bg-blue-50 text-blue-600 px-2 py-1 rounded-full">{team?.name || 'My Team'}</span>
+                  </div>
+                  <div className="space-y-4">
+                     {[
+                        { user: 'Ahmed', action: 'completed Office Recycling', time: '10m ago', icon: 'fa-recycle', color: 'bg-green-100 text-green-600' },
+                        { user: 'Fatima', action: 'logged Carpool Commute', time: '1h ago', icon: 'fa-car-side', color: 'bg-blue-100 text-blue-600' },
+                        { user: 'Alex', action: 'turned off Meeting Room AC', time: '2h ago', icon: 'fa-wind', color: 'bg-purple-100 text-purple-600' }
+                     ].map((act, i) => (
+                        <div key={i} className="flex items-center gap-3">
+                           <div className={`w-10 h-10 rounded-xl ${act.color} flex items-center justify-center text-sm`}>
+                              <i className={`fas ${act.icon}`}></i>
+                           </div>
+                           <div className="flex-1">
+                              <div className="text-xs font-bold text-slate-800"><span className="text-blue-600">{act.user}</span> {act.action}</div>
+                              <div className="text-[9px] font-medium text-slate-400">{act.time}</div>
+                           </div>
+                           <button className="w-8 h-8 rounded-full bg-slate-50 text-slate-400 hover:text-red-500 hover:bg-red-50 flex items-center justify-center transition-colors">
+                              <i className="far fa-heart"></i>
+                           </button>
+                        </div>
+                     ))}
+                  </div>
+                  <button onClick={() => onNavigate(ScreenName.COMMUNITY)} className="w-full mt-4 py-3 bg-slate-50 text-slate-600 rounded-xl text-[10px] font-bold uppercase tracking-wider hover:bg-slate-100 transition-colors">
+                     View All Team Updates
+                  </button>
+               </div>
+            </div>
+         ) : null}
+
+
 
          {/* 2. TODAY'S FOCUS (Minimized - Click reveals all) */}
          <div
@@ -560,22 +562,47 @@ const HomeScreen: React.FC<Props> = ({ onNavigate }) => {
          {/* 3b. SEASONAL / LIMITED-TIME EVENT BANNER (below AI Suggestions) */}
          {activeGameEvent && !simplifiedView && (
             <div
-               className={`rounded-[28px] overflow-hidden relative shadow-lg group cursor-pointer ${activeGameEvent.theme.bg} ${activeGameEvent.theme.text}`}
+               className={`rounded-[28px] overflow-hidden relative shadow-lg group cursor-pointer ${activeGameEvent.id === 'proud_of_uae' ? 'text-white' : activeGameEvent.theme.bg + ' ' + activeGameEvent.theme.text}`}
                onClick={() => alert('Event Details Modal would open here')}
             >
-               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/arabesque.png')] opacity-10"></div>
-               <div className="p-5 flex justify-between items-center relative z-10">
-                  <div className="flex-1 pr-4">
-                     <div className="flex items-center gap-2 mb-1.5">
-                        <span className="text-[8px] font-black uppercase tracking-widest bg-white/20 px-2 py-0.5 rounded-full backdrop-blur-sm border border-white/20">Limited Time</span>
-                        <span className="text-[9px] font-bold opacity-80 flex items-center gap-1 bg-black/20 px-2 py-0.5 rounded-full"><i className="fas fa-clock"></i> 12 Days Left</span>
+               {activeGameEvent.id === 'proud_of_uae' && (
+                  <div className="absolute inset-0 flex z-0">
+                     <div className="w-[30%] h-full bg-[#CC0001]"></div>
+                     <div className="flex-1 flex flex-col">
+                        <div className="flex-1 bg-[#006233]"></div>
+                        <div className="flex-1 bg-white"></div>
+                        <div className="flex-1 bg-black"></div>
                      </div>
-                     <h3 className="text-xl font-black font-jakarta uppercase leading-tight tracking-wide mb-1">{activeGameEvent.title}</h3>
-                     <p className="text-[10px] opacity-90 leading-tight max-w-[90%]">{activeGameEvent.description}</p>
+                     <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
                   </div>
-                  <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center text-3xl backdrop-blur-sm border border-white/20 shadow-inner group-hover:scale-110 transition-transform">
-                     <i className={`fas ${activeGameEvent.theme.icon}`}></i>
+               )}
+               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/arabesque.png')] opacity-10 z-0"></div>
+               
+               <div className="p-5 flex justify-between items-center relative z-10 min-h-[140px]">
+                  <div className="flex-1 pr-4 max-w-[75%]">
+                     <div className="flex items-center gap-2 mb-2">
+                        {activeGameEvent.id === 'proud_of_uae' ? (
+                           <span className="text-[8px] font-black uppercase tracking-widest bg-white/10 px-2.5 py-1 rounded-full backdrop-blur-md border border-white/20 flex items-center gap-1.5 shadow-sm text-white"><i className="fas fa-star text-amber-300"></i> National Unity</span>
+                        ) : (
+                           <>
+                              <span className="text-[8px] font-black uppercase tracking-widest bg-white/20 px-2 py-0.5 rounded-full backdrop-blur-sm border border-white/20">Limited Time</span>
+                              <span className="text-[9px] font-bold opacity-80 flex items-center gap-1 bg-black/20 px-2 py-0.5 rounded-full"><i className="fas fa-clock"></i> 12 Days Left</span>
+                           </>
+                        )}
+                     </div>
+                     <h3 className="text-xl font-black font-jakarta uppercase leading-tight tracking-wide mb-1.5">{activeGameEvent.title}</h3>
+                     <p className={`text-[10px] leading-snug ${activeGameEvent.id === 'proud_of_uae' ? 'font-medium opacity-100 text-gray-200 shadow-sm' : 'opacity-90 max-w-[90%]'}`}>{activeGameEvent.description}</p>
                   </div>
+                  
+                  {activeGameEvent.id === 'proud_of_uae' ? (
+                     <div className="w-24 h-24 shrink-0 -mr-1 rounded-2xl overflow-hidden border-2 border-white/20 shadow-xl group-hover:scale-105 transition-transform duration-500 relative z-20 bg-black">
+                        <img src={mbzPhoto} alt="HH Sheikh Mohamed bin Zayed" className="w-full h-full object-cover object-[center_10%]" />
+                     </div>
+                  ) : (
+                     <div className="w-14 h-14 shrink-0 rounded-2xl bg-white/20 flex items-center justify-center text-3xl backdrop-blur-sm border border-white/20 shadow-inner group-hover:scale-110 transition-transform">
+                        <i className={`fas ${activeGameEvent.theme.icon}`}></i>
+                     </div>
+                  )}
                </div>
             </div>
          )}

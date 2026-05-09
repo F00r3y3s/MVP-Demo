@@ -191,10 +191,10 @@ const MarketplaceScreen: React.FC<Props> = ({ onNavigate }) => {
    );
 
    return (
-      <div className="bg-[var(--bg-primary)] min-h-full pb-32">
+      <div className="bg-[var(--bg-primary)] min-h-full pb-10">
 
          {/* 1. STICKY GLASS HEADER */}
-         <div className="sticky top-0 z-40 bg-[var(--bg-primary)]/90 backdrop-blur-xl pt-12 pb-2 px-5 border-b border-[var(--border-light)]/50 shadow-sm transition-all">
+         <div className="sticky top-0 z-40 bg-white/70 backdrop-blur-xl pt-12 pb-2 px-5 border-b border-white/20 shadow-sm transition-all">
             <div className="flex justify-between items-center mb-4">
                <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--forest-deep)] to-[var(--teal)] flex items-center justify-center text-white shadow-lg shadow-green-900/20">

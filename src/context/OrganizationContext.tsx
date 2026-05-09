@@ -6,7 +6,9 @@ export type OrganizationRole = 'employee' | 'manager' | 'admin';
 export interface Organization {
     id: string;
     name: string;
-    logo: string; // Emoji for now, or URL
+    shortName?: string;
+    logo: string;     // Emoji fallback
+    logoUrl?: string; // Real image URL (optional)
     color: string;
 }
 
@@ -33,11 +35,17 @@ export interface OrganizationContextType extends OrganizationState {
 }
 
 const defaultState: OrganizationState = {
-    isLinked: false,
-    organization: null,
-    role: 'employee',
-    department: '',
-    team: null,
+    isLinked: true,
+    organization: {
+        id: 'org_moccae',
+        name: 'Ministry of Climate Change & Environment',
+        shortName: 'MOCCAE',
+        logo: '🇦🇪',
+        color: 'from-[#006233] to-[#00843D]'
+    },
+    role: 'admin',
+    department: 'Environment & Climate',
+    team: { id: 'team_env', name: 'Environment & Climate', score: 24800, rank: 1, membersCount: 48 },
 };
 
 // Mock Data
@@ -45,6 +53,13 @@ export const MOCK_ORGANIZATIONS: Record<string, Organization> = {
     'GTD001': { id: 'org_1', name: 'Green Tech Dubai', logo: '🏢', color: 'from-blue-500 to-indigo-600' },
     'ESU002': { id: 'org_2', name: 'EcoSolutions UAE', logo: '🌿', color: 'from-emerald-500 to-teal-600' },
     'ADN003': { id: 'org_3', name: 'ADNOC Distribution', logo: '⛽', color: 'from-blue-600 to-cyan-700' },
+    'MCC001': {
+        id: 'org_moccae',
+        name: 'Ministry of Climate Change & Environment',
+        shortName: 'MOCCAE',
+        logo: '🇦🇪',
+        color: 'from-[#006233] to-[#00843D]'
+    },
 };
 
 export const MOCK_TEAMS: Record<string, Team> = {
@@ -58,7 +73,7 @@ const OrganizationContext = createContext<OrganizationContextType | undefined>(u
 export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [state, setState] = useState<OrganizationState>(() => {
         try {
-            const saved = localStorage.getItem('sustain_org_state');
+            const saved = localStorage.getItem('estidamaty_org_state_v2');
             return saved ? JSON.parse(saved) : defaultState;
         } catch {
             return defaultState;
@@ -66,7 +81,7 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({ childr
     });
 
     useEffect(() => {
-        localStorage.setItem('sustain_org_state', JSON.stringify(state));
+        localStorage.setItem('estidamaty_org_state_v2', JSON.stringify(state));
     }, [state]);
 
     const linkOrganization = async (code: string): Promise<boolean> => {

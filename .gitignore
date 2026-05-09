@@ -28,3 +28,12 @@ dist-ssr
 .agent/
 *.md
 !README.md
+.gitnexus
+
+# Agent and PRD files
+.agents/
+.claude/
+docs/
+skills-lock.json
+*.cjs
+check_jsx.js

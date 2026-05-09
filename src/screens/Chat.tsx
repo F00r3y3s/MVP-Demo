@@ -11,7 +11,7 @@ const ChatScreen: React.FC<Props> = ({ goBack }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: '1',
-      text: "Hello! I'm Sustain AI. How can I help you live greener today?",
+      text: "Hello! I'm Estidamaty AI. How can I help you live greener today?",
       sender: 'ai',
       timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
     }
@@ -62,7 +62,7 @@ const ChatScreen: React.FC<Props> = ({ goBack }) => {
           <i className="fas fa-robot"></i>
         </div>
         <div>
-          <h2 className="font-bold text-lg leading-none">Sustain AI</h2>
+          <h2 className="font-bold text-lg leading-none">Estidamaty AI</h2>
           <span className="text-xs opacity-80 flex items-center gap-1">
             <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span> Online
           </span>

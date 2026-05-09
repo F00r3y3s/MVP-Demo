@@ -186,18 +186,49 @@ const TargetScreen: React.FC<Props> = ({ onNavigate, onBack }) => {
   ];
 
   return (
-    <div className="bg-[var(--bg-primary)] min-h-full pb-32 font-jakarta">
+    <div className="bg-[var(--bg-primary)] h-full relative flex flex-col font-jakarta">
 
-      {/* HERO SECTION: Visual Progress + Key Stats */}
-      <div className="relative bg-gradient-to-br from-emerald-50 via-white to-blue-50 pt-12 pb-8 px-6 border-b border-gray-100">
-        <div className="absolute top-0 right-0 p-8 opacity-5 text-[120px]">
-          <i className="fas fa-bullseye"></i>
+      {/* STICKY GLASS HEADER */}
+      <div className="sticky top-0 z-40 bg-[var(--bg-primary)]/95 backdrop-blur-xl pt-12 pb-2 px-6 border-b border-[var(--border-light)]/50 transition-all">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-3">
+             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white shadow-lg">
+                <i className="fas fa-bullseye"></i>
+             </div>
+             <div>
+                <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Mission Hub</div>
+                <h1 className="text-xl font-black text-slate-800 tracking-tight">Eco Target</h1>
+             </div>
+          </div>
+          <button onClick={onBack} className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-400 border border-slate-100 shadow-sm active:scale-95">
+            <i className="fas fa-chevron-left"></i>
+          </button>
         </div>
 
-        <div className="relative z-10">
-          <h1 className="text-2xl font-black text-slate-800 mb-1 tracking-tight">Mission Hub</h1>
-          <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-6">Your Sustainability Command Center</p>
+        {/* Quick Nav Tabs moved into Sticky Header for better access */}
+        {!simplifiedView && (
+          <div className="flex gap-1 p-1 bg-slate-100 rounded-xl overflow-x-auto no-scrollbar">
+            {(['overview', 'activities', 'analytics'] as const).map(tab => (
+              <button
+                key={tab}
+                onClick={() => setViewMode(tab)}
+                className={`flex-1 min-w-[80px] py-2 px-3 rounded-lg text-[10px] font-black uppercase tracking-wide transition-all ${viewMode === tab
+                  ? 'bg-white text-emerald-600 shadow-sm'
+                  : 'text-slate-500 hover:bg-white/50'
+                  }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
 
+      {/* SCROLLABLE CONTENT */}
+      <div className="flex-1 overflow-y-auto no-scrollbar pb-10">
+        {/* HERO SECTION: Key Stats */}
+        <div className="relative bg-gradient-to-br from-emerald-50 via-white to-blue-50 pt-8 pb-8 px-6 border-b border-gray-100">
+        <div className="relative z-10">
           {/* Compact Target Visual */}
           <div className="flex items-center justify-between gap-6 mb-6">
             {/* Mini Target */}
@@ -241,32 +272,7 @@ const TargetScreen: React.FC<Props> = ({ onNavigate, onBack }) => {
               </div>
             </div>
           </div>
-
-          {/* Quick Nav Tabs */}
-          {!simplifiedView && (
-            <div className="flex gap-2">
-              <button
-                onClick={() => setViewMode('overview')}
-                className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all ${viewMode === 'overview' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-200' : 'bg-white/60 text-slate-600 hover:bg-white'}`}
-              >
-                Overview
-              </button>
-              <button
-                onClick={() => setViewMode('activities')}
-                className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all ${viewMode === 'activities' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-200' : 'bg-white/60 text-slate-600 hover:bg-white'}`}
-              >
-                Explore
-              </button>
-              <button
-                onClick={() => setViewMode('analytics')}
-                className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all ${viewMode === 'analytics' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-200' : 'bg-white/60 text-slate-600 hover:bg-white'}`}
-              >
-                Analytics
-              </button>
-            </div>
-          )}
         </div>
-      </div>
 
       {/* MAIN CONTENT AREA */}
       <div className="p-6 space-y-6">
@@ -1039,6 +1045,8 @@ const TargetScreen: React.FC<Props> = ({ onNavigate, onBack }) => {
         </div>
       )}
 
+        </div>
+      </div>
     </div>
   );
 };

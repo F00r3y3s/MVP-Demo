@@ -52,7 +52,7 @@ const Layout: React.FC<LayoutProps> = ({ currentScreen, children, onNavigate, go
       case ScreenName.CAMERA: return 'Scanner';
       case ScreenName.MARKETPLACE: return 'ECO Market Place';
       case ScreenName.SHOP: return 'ECO Market Place';
-      default: return 'Sustain';
+      default: return 'Estidamaty';
     }
   };
 
@@ -78,7 +78,7 @@ const Layout: React.FC<LayoutProps> = ({ currentScreen, children, onNavigate, go
               <div className="w-9 h-9 flex items-center justify-center rounded-xl bg-gradient-to-br from-[#10B981] to-[#059669] text-white shadow-lg shadow-emerald-200">
                 <i className="fas fa-leaf text-sm"></i>
               </div>
-              <span className="font-extrabold text-xl tracking-tight text-[#065F46]">Sustain</span>
+              <span className="font-extrabold text-xl tracking-tight text-[#065F46]">Estidamaty</span>
             </div>
           ) : (
             <button onClick={goBack} className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-400 hover:text-emerald-600 transition-all border border-slate-100 shadow-sm active:scale-95">
@@ -159,7 +159,7 @@ const Layout: React.FC<LayoutProps> = ({ currentScreen, children, onNavigate, go
           }
           lastScrollTop.current = st <= 0 ? 0 : st;
         }}
-        className={`flex-1 overflow-y-auto no-scrollbar w-full relative ${displayTopNav ? 'pt-[100px]' : ''} pb-[160px]`}
+        className={`flex-1 overflow-y-auto no-scrollbar w-full relative ${displayTopNav ? 'pt-[100px]' : ''} pb-[110px]`}
       >
         {children}
       </div>
@@ -309,7 +309,7 @@ const Layout: React.FC<LayoutProps> = ({ currentScreen, children, onNavigate, go
 
       {/* Glassy Blur Layer at the bottom to smooth transition */}
       {showBottomNav && (
-        <div className={`absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white via-white/40 to-white/0 backdrop-blur-xl z-[90] transition-all duration-700 pointer-events-none ${isMinimized ? 'translate-y-full opacity-0' : 'translate-y-0 opacity-100'}`}></div>
+        <div className={`absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-white/50 via-white/10 to-transparent backdrop-blur-lg z-[90] transition-all duration-700 pointer-events-none border-t border-white/20 ${isMinimized ? 'translate-y-full opacity-0' : 'translate-y-0 opacity-100'}`}></div>
       )}
 
       {/* Premium Navbar Container */}

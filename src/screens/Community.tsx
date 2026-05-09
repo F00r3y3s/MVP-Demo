@@ -4,7 +4,7 @@ import { ScreenName, FeedPost } from '../types';
 import RewardView from '../components/RewardView';
 import { useAccessibility } from '../context/AccessibilityContext';
 import { useOrganization } from '../context/OrganizationContext';
-import { USER_IMAGE_URL } from '../constants';
+import { USER_IMAGE_URL, USER_NAME } from '../constants';
 
 interface Props {
    onNavigate: (screen: ScreenName) => void;
@@ -98,8 +98,8 @@ const CommunityScreen: React.FC<Props> = ({ onNavigate, initialTab }) => {
       {
          id: '1',
          user: {
-            name: 'Ahmed Al Mansouri',
-            avatar: 'AM',
+            name: 'Ahmed Al Suwaidi',
+            avatar: 'AS',
             avatarImage: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=150',
             badge: 'Eco Warrior',
             isVerified: true
@@ -113,11 +113,11 @@ const CommunityScreen: React.FC<Props> = ({ onNavigate, initialTab }) => {
          image: 'https://images.unsplash.com/photo-1621451537084-482c73073a0f?auto=format&fit=crop&q=80&w=800',
          impact: '5kg Waste Removed',
          wdaEarned: 150,
-         relation: 'Family'
+         relation: 'Friend'
       },
       {
          id: '2',
-         user: { name: 'Sarah Johnson', avatar: 'SJ', avatarImage: USER_IMAGE_URL, badge: 'Mentor' },
+         user: { name: USER_NAME, avatar: 'NZ', avatarImage: USER_IMAGE_URL, badge: 'Mentor' },
          content: 'Just harvested my first batch of tomatoes from the balcony garden! 🍅 Urban farming is easier than you think. DM me if you need tips on soil mix!',
          time: '4h ago',
          likes: 180,
@@ -141,32 +141,32 @@ const CommunityScreen: React.FC<Props> = ({ onNavigate, initialTab }) => {
    ]);
 
    const [blogs, setBlogs] = useState<BlogState[]>([
-      { id: 1, title: '10 Easy Ways to Reduce Carbon Footprint at Home', author: 'Sarah Johnson', readTime: '5 min', category: 'Tips', image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=300', wdaEarned: 25 },
-      { id: 2, title: 'The Future of Water Desalination in the UAE', author: 'Ahmed Al Mansouri', readTime: '8 min', category: 'Innovation', image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=300', wdaEarned: 25 },
-      { id: 3, title: 'My Journey to Zero Waste: Month 1', author: 'Fatima Z.', readTime: '6 min', category: 'Personal', image: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&q=80&w=300', wdaEarned: 25 },
+      { id: 1, title: '10 Easy Ways to Reduce Carbon Footprint at Home', author: USER_NAME, readTime: '5 min', category: 'Tips', image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=300', wdaEarned: 25 },
+      { id: 2, title: 'The Future of Water Desalination in the UAE', author: 'Ahmed Al Suwaidi', readTime: '8 min', category: 'Innovation', image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=300', wdaEarned: 25 },
+      { id: 3, title: 'My Journey to Zero Waste: Month 1', author: 'Fatima Al Mansouri', readTime: '6 min', category: 'Personal', image: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&q=80&w=300', wdaEarned: 25 },
    ]);
 
    const stories = [
-      { id: 's1', user: 'You', avatar: 'SJ', isUser: true },
-      { id: 's2', user: 'Ahmed', avatar: 'AM', image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=150', seen: false, hasWda: true },
-      { id: 's3', user: 'Fatima', avatar: 'FZ', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=150', seen: false },
+      { id: 's1', user: 'You', avatar: 'NZ', isUser: true },
+      { id: 's2', user: 'Ahmed', avatar: 'AS', image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=150', seen: false, hasWda: true },
+      { id: 's3', user: 'Fatima', avatar: 'FM', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=150', seen: false },
       { id: 's4', user: 'EcoUAE', avatar: 'EU', image: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&q=80&w=150', seen: true, isOfficial: true },
       { id: 's5', user: 'Zayed', avatar: 'ZA', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150', seen: false },
    ];
 
    const messages = [
-      { id: 'm1', user: 'Ahmed Al Mansouri', avatar: 'AM', avatarImage: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=150', time: '2m', lastMsg: 'See you at the beach cleanup! 🌊', unread: 2, online: true },
-      { id: 'm2', user: 'Fatima Zaabi', avatar: 'FZ', time: '1h', lastMsg: 'Thanks for the tips on composting.', unread: 0, online: false },
+      { id: 'm1', user: 'Ahmed Al Suwaidi', avatar: 'AS', avatarImage: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=150', time: '2m', lastMsg: 'See you at the beach cleanup! 🌊', unread: 2, online: true },
+      { id: 'm2', user: 'Fatima Al Mansouri', avatar: 'FM', time: '1h', lastMsg: 'Thanks for the tips on composting.', unread: 0, online: false },
       { id: 'm3', user: 'EcoUAE Official', avatar: 'EU', time: '3h', lastMsg: 'Your submission has been approved.', unread: 0, online: true },
-      { id: 'm4', user: 'Khalid M.', avatar: 'KM', time: '1d', lastMsg: 'Did you check the new solar panels?', unread: 0, online: false },
+      { id: 'm4', user: 'Khalid Al Hashemi', avatar: 'KH', time: '1d', lastMsg: 'Did you check the new solar panels?', unread: 0, online: false },
    ];
 
    const leaderboard = [
-      { rank: 1, name: 'Ahmed Al Mansouri', badge: 'Eco Warrior', points: '15,200', avatar: 'AM', color: 'bg-amber-500', isUser: false },
-      { rank: 2, name: 'Fatima Al Zaabi', badge: 'Green Champion', points: '12,850', avatar: 'FZ', color: 'bg-slate-400', isUser: false },
-      { rank: 3, name: 'Khalid Al Sharqi', badge: 'Sustainability Hero', points: '10,400', avatar: 'KS', color: 'bg-orange-700', isUser: false },
+      { rank: 1, name: 'Ahmed Al Suwaidi', badge: 'Eco Warrior', points: '15,200', avatar: 'AS', color: 'bg-amber-500', isUser: false },
+      { rank: 2, name: 'Fatima Al Mansouri', badge: 'Green Champion', points: '12,850', avatar: 'FM', color: 'bg-slate-400', isUser: false },
+      { rank: 3, name: 'Khalid Al Hashemi', badge: 'Sustainability Hero', points: '10,400', avatar: 'KH', color: 'bg-orange-700', isUser: false },
       { rank: 4, name: 'Mariam Al Falasi', badge: 'Member', points: '8,900', avatar: 'MF', color: 'bg-teal-600', isUser: false },
-      { rank: 12, name: 'Sarah Johnson', badge: 'Mentor', points: '2,850', avatar: 'SJ', color: 'bg-green-600', isUser: true },
+      { rank: 12, name: USER_NAME, badge: 'Mentor', points: '2,850', avatar: 'NZ', color: 'bg-green-600', isUser: true },
    ];
 
    const awards = [
@@ -261,7 +261,7 @@ const CommunityScreen: React.FC<Props> = ({ onNavigate, initialTab }) => {
 
       const newPost: PostState = {
          id: Date.now().toString(),
-         user: { name: 'Sarah Johnson', avatar: 'SJ', badge: 'Mentor', isVerified: true },
+         user: { name: USER_NAME, avatar: 'NZ', badge: 'Mentor', isVerified: true },
          content: newPostContent,
          time: 'Just now',
          likes: 0,
@@ -281,7 +281,7 @@ const CommunityScreen: React.FC<Props> = ({ onNavigate, initialTab }) => {
       const newBlog: BlogState = {
          id: Date.now(),
          title: blogTitle,
-         author: 'Sarah Johnson',
+         author: USER_NAME,
          readTime: '2 min',
          category: blogCategory,
          image: 'https://images.unsplash.com/photo-1497436072909-60f360e1d4b0?auto=format&fit=crop&q=80&w=300', // Default image
@@ -318,13 +318,13 @@ const CommunityScreen: React.FC<Props> = ({ onNavigate, initialTab }) => {
       }
    }, [viewMode, showAllGoalsModal, communityGoals.length]);
 
-   const displayedBlogs = blogTab === 'community' ? blogs : blogs.filter(b => b.author === 'Sarah Johnson');
+   const displayedBlogs = blogTab === 'community' ? blogs : blogs.filter(b => b.author === USER_NAME);
 
    return (
       <div className="bg-[var(--bg-primary)] h-full relative flex flex-col" onClick={() => setShowStatusMenu(false)}>
 
          {/* 1. HEADER */}
-         <div className="sticky top-0 z-40 bg-[var(--bg-primary)]/95 backdrop-blur-xl border-b border-[var(--border-light)]/50 pt-16 pb-2 px-5 transition-all">
+         <div className="sticky top-0 z-40 bg-white/70 backdrop-blur-xl border-b border-white/20 pt-12 pb-2 px-5 transition-all">
             <div className="flex items-center justify-between mb-4">
                {/* User Info */}
                <div className="flex items-center gap-3">
@@ -346,7 +346,7 @@ const CommunityScreen: React.FC<Props> = ({ onNavigate, initialTab }) => {
                      )}
                   </div>
                   <div>
-                     <h2 className="font-bold text-[var(--text-primary)] text-sm leading-none mb-0.5">Sarah Johnson</h2>
+                     <h2 className="font-bold text-[var(--text-primary)] text-sm leading-none mb-0.5">{USER_NAME}</h2>
                      <div className="flex items-center gap-1.5 flex-wrap">
                         <span className="text-[10px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded font-bold">Lvl 12</span>
                         {/* Phase 2B Task 2.2: Organization Badge */}
@@ -390,7 +390,7 @@ const CommunityScreen: React.FC<Props> = ({ onNavigate, initialTab }) => {
             </div>
          </div>
 
-         <div className="flex-1 overflow-y-auto no-scrollbar pb-32">
+         <div className="flex-1 overflow-y-auto no-scrollbar pb-10">
             {/* === VIEW 1: SOCIAL FEED === */}
             {viewMode === 'feed' && (
                <div className="animate-[fadeIn_0.3s_ease-out]">
@@ -524,11 +524,11 @@ const CommunityScreen: React.FC<Props> = ({ onNavigate, initialTab }) => {
                   {/* Connection Cards Grid */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3" role="list" aria-label={`${friendCircleFilter === 'all' ? 'All' : friendCircleFilter} connections`}>
                      {[
-                        { name: 'Ahmed Al Mansouri', avatar: 'AM', avatarImage: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=150', badge: 'Eco Warrior', relation: 'Family', wda: 15420, online: true },
-                        { name: 'Fatima Al Zaabi', avatar: 'FZ', badge: 'Green Champion', relation: 'Friend', wda: 12850, online: false },
-                        { name: 'Khalid Al Sharqi', avatar: 'KS', badge: 'Sustainability Hero', relation: 'Friend', wda: 10400, online: true },
+                        { name: 'Abdullah Al Zaabi', avatar: 'AZ', avatarImage: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=150', badge: 'Eco Warrior', relation: 'Family', wda: 15420, online: true },
+                        { name: 'Fatima Al Mansouri', avatar: 'FM', badge: 'Green Champion', relation: 'Family', wda: 12850, online: false },
+                        { name: 'Ahmed Al Suwaidi', avatar: 'AS', badge: 'Sustainability Hero', relation: 'Friend', wda: 10400, online: true },
                         { name: 'Mariam Al Falasi', avatar: 'MF', badge: 'Member', relation: 'Work', wda: 8900, online: false },
-                        { name: 'Omar Hassan', avatar: 'OH', badge: 'Newcomer', relation: 'Follower', wda: 3200, online: true },
+                        { name: 'Alex Chen', avatar: 'AC', badge: 'Newcomer', relation: 'Follower', wda: 3200, online: true },
                      ]
                         .filter(p => friendCircleFilter === 'all' || p.relation === friendCircleFilter)
                         .map((person) => (
@@ -567,9 +567,9 @@ const CommunityScreen: React.FC<Props> = ({ onNavigate, initialTab }) => {
                      </h3>
                      <div className="space-y-3">
                         {[
-                           { name: 'Ahmed', action: 'planted a tree', time: '2 min ago', icon: 'fa-tree', color: 'bg-green-100 text-green-600' },
+                           { name: 'Abdullah', action: 'planted a tree', time: '2 min ago', icon: 'fa-tree', color: 'bg-green-100 text-green-600' },
                            { name: 'Fatima', action: 'completed zero waste challenge', time: '15 min ago', icon: 'fa-recycle', color: 'bg-blue-100 text-blue-600' },
-                           { name: 'Khalid', action: 'earned Carbon Crusher badge', time: '1 hour ago', icon: 'fa-medal', color: 'bg-amber-100 text-amber-600' },
+                           { name: 'Ahmed', action: 'earned Carbon Crusher badge', time: '1 hour ago', icon: 'fa-medal', color: 'bg-amber-100 text-amber-600' },
                         ].map((activity, i) => (
                            <div key={i} className="flex items-center gap-3 p-3 bg-white rounded-xl border border-[var(--border-light)]">
                               <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${activity.color}`}>
@@ -867,7 +867,7 @@ const CommunityScreen: React.FC<Props> = ({ onNavigate, initialTab }) => {
                            <i className="fas fa-user"></i>
                         </div>
                      </div>
-                     <h2 className="text-xl font-bold text-white mb-0.5">Sarah Johnson</h2>
+                     <h2 className="text-xl font-bold text-white mb-0.5">{USER_NAME}</h2>
                      <p className="text-purple-200 text-[10px] mb-4 font-medium tracking-wide uppercase">Level 12 Eco Warrior</p>
 
                      <div className="flex justify-center gap-4 text-white">
@@ -1172,7 +1172,7 @@ const CommunityScreen: React.FC<Props> = ({ onNavigate, initialTab }) => {
                      <div>
                         <h3 className="text-xs font-bold text-[var(--text-muted)] uppercase mb-3 px-2">Suggestions</h3>
                         <div className="space-y-2">
-                           {[{ name: 'Zayed Al Nahyan', mutual: '12 mutual friends', avatar: 'ZN' }, { name: 'Eco Warrior UAE', mutual: 'Followed by Ahmed', avatar: 'EW' }].map((person, i) => (
+                           {[{ name: 'Majed Al Zaabi', mutual: '12 mutual friends', avatar: 'MZ' }, { name: 'Eco Warrior UAE', mutual: 'Followed by Ahmed', avatar: 'EW' }].map((person, i) => (
                               <div key={i} className="flex items-center gap-3 p-3 bg-white rounded-2xl border border-[var(--border-light)]">
                                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-400 to-indigo-500 flex items-center justify-center text-white font-bold shadow-sm">{person.avatar}</div>
                                  <div className="flex-1">
@@ -1185,7 +1185,7 @@ const CommunityScreen: React.FC<Props> = ({ onNavigate, initialTab }) => {
                         </div>
                      </div>
                      <div>
-                        <h3 className="text-xs font-bold text-[var(--text-muted)] uppercase mb-3 px-2">Contacts on Sustain</h3>
+                        <h3 className="text-xs font-bold text-[var(--text-muted)] uppercase mb-3 px-2">Contacts on Estidamaty</h3>
                         <div className="space-y-2">
                            <div className="text-center py-6">
                               <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-2 text-gray-400"><i className="fas fa-address-book"></i></div>
@@ -1331,9 +1331,9 @@ const CommunityScreen: React.FC<Props> = ({ onNavigate, initialTab }) => {
                         <h3 className="text-xs font-bold text-[var(--text-muted)] uppercase mb-3 px-2">Suggested</h3>
                         <div className="space-y-3">
                            {[
-                              { name: 'Father - Ahmed', avatar: 'AM', relation: 'Father', wda: 15420 },
-                              { name: 'Mother - Fatima', avatar: 'FZ', relation: 'Mother', wda: 12850 },
-                              { name: 'Sister - Mariam', avatar: 'MM', relation: 'Sister', wda: 8900 },
+                              { name: 'Father - Abdullah', avatar: 'AZ', relation: 'Father', wda: 15420 },
+                              { name: 'Mother - Fatima', avatar: 'FM', relation: 'Mother', wda: 12850 },
+                              { name: 'Sister - Sarah', avatar: 'SZ', relation: 'Sister', wda: 8900 },
                            ].map((member, i) => (
                               <div key={i} className="flex items-center justify-between p-4 bg-[var(--bg-tertiary)] rounded-2xl border border-[var(--border-light)] hover:border-red-200 transition-colors cursor-pointer">
                                  <div className="flex items-center gap-3">

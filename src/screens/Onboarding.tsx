@@ -65,7 +65,7 @@ export const SplashScreen: React.FC<SplashProps> = ({ onFinish }) => {
       >
         {/* Brand Label (Fades out when moving up to be cleaner, or keeps it subtle) */}
         <h2 className={`text-emerald-400 font-jakarta font-bold text-sm tracking-[0.5em] uppercase mb-6 transition-opacity duration-500 ${stage === 0 ? 'opacity-100' : 'opacity-0 h-0'}`}>
-          SUSTAIN
+          ESTIDAMATY
         </h2>
 
         <AinarLogo />

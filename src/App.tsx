@@ -37,8 +37,8 @@ const PlaceholderScreen: React.FC<{ name: string, onBack?: () => void }> = ({ na
 );
 
 const App: React.FC = () => {
-  const [currentScreen, setCurrentScreen] = useState<ScreenName>(ScreenName.LOGIN);
-  const [history, setHistory] = useState<ScreenName[]>([ScreenName.LOGIN]);
+  const [currentScreen, setCurrentScreen] = useState<ScreenName>(ScreenName.SPLASH);
+  const [history, setHistory] = useState<ScreenName[]>([ScreenName.SPLASH]);
   const [navParams, setNavParams] = useState<any>({});
 
   const navigate = (screen: ScreenName, params?: any) => {

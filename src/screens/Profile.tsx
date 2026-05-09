@@ -5,7 +5,7 @@ import { useOrganization } from '../context/OrganizationContext';
 import { useLevel } from '../context/LevelContext'; // Phase 7
 import { useStreak } from '../context/StreakContext'; // Phase 7
 import { ACHIEVEMENTS, RARITY_COLORS } from '../data/achievements'; // Phase 7
-import { USER_IMAGE_URL } from '../constants';
+import { USER_IMAGE_URL, USER_NAME } from '../constants';
 
 interface Props {
   onNavigate: (screen: ScreenName) => void;
@@ -40,7 +40,26 @@ const ProfileScreen: React.FC<Props> = ({ onNavigate, goBack }) => {
   };
 
   return (
-    <div className="bg-[var(--bg-primary)] min-h-full pb-32 relative">
+    <div className="bg-[var(--bg-primary)] h-full relative flex flex-col font-jakarta">
+      {/* STICKY GLASS HEADER */}
+      <div className="sticky top-0 z-40 bg-white/70 backdrop-blur-xl pt-12 pb-2 px-6 border-b border-white/20 transition-all">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-3">
+             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg">
+                <i className="fas fa-user"></i>
+             </div>
+             <div>
+                <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Sustainability Passport</div>
+                <h1 className="text-xl font-black text-slate-800 tracking-tight">Eco Profile</h1>
+             </div>
+          </div>
+          <button onClick={goBack} className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-400 border border-slate-100 shadow-sm active:scale-95">
+            <i className="fas fa-chevron-left"></i>
+          </button>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto no-scrollbar pb-10">
       {/* Profile Header */}
       <div className="relative bg-gradient-to-br from-[var(--forest-deep)] to-[var(--teal)] text-white overflow-hidden pb-6">
         {/* Cover Pattern Overlay */}
@@ -60,7 +79,7 @@ const ProfileScreen: React.FC<Props> = ({ onNavigate, goBack }) => {
               Lvl {level}
             </div>
           </div>
-          <h1 className="text-2xl font-bold font-jakarta">Sarah Johnson</h1>
+          <h1 className="text-2xl font-bold font-jakarta">{USER_NAME}</h1>
           <p className="text-sm opacity-90 flex items-center justify-center gap-2 mt-1">
             <i className="fas fa-crown text-yellow-300"></i> {tier} Tier • {currentStreak} Day Streak 🔥
           </p>
@@ -208,9 +227,9 @@ const ProfileScreen: React.FC<Props> = ({ onNavigate, goBack }) => {
                 {isLinked && organization ? (
                   <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-3 text-white">
                     <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-xl border border-white/10">
-                        {organization.logo}
-                      </div>
+                        <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-xl border border-white/10">
+                         {organization.logo}
+                       </div>
                       <div className="flex-1">
                         <h4 className="font-bold text-sm">{organization.name}</h4>
                         <p className="text-[10px] text-gray-300">{department} • {role}</p>
@@ -411,7 +430,8 @@ const ProfileScreen: React.FC<Props> = ({ onNavigate, goBack }) => {
           </div>
         </div>
       )}
-    </div >
+      </div>
+    </div>
   );
 };
 

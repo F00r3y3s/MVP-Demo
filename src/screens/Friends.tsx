@@ -29,12 +29,12 @@ const FriendsScreen: React.FC<Props> = ({ onBack }) => {
         <div className="space-y-3">
           <div className="bg-white rounded-2xl p-3 border border-[var(--border-light)] shadow-sm flex items-center gap-3">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--teal)] to-[var(--forest-deep)] flex items-center justify-center text-white text-lg font-bold">
-              AM
+              AS
             </div>
             <div className="flex-1">
               <h4 className="font-bold text-[var(--text-primary)] flex items-center gap-2">
-                Ahmed Al Mansouri
-                <span className="text-[10px] bg-red-100 text-red-500 px-2 py-0.5 rounded-full font-bold flex items-center gap-1"><i className="fas fa-heart"></i> Family</span>
+                Ahmed Al Suwaidi
+                <span className="text-[10px] bg-blue-100 text-blue-500 px-2 py-0.5 rounded-full font-bold flex items-center gap-1"><i className="fas fa-user-friends"></i> Friend</span>
               </h4>
               <p className="text-xs text-[var(--text-secondary)]">Eco Warrior • Online</p>
             </div>
@@ -46,10 +46,13 @@ const FriendsScreen: React.FC<Props> = ({ onBack }) => {
 
           <div className="bg-white rounded-2xl p-3 border border-[var(--border-light)] shadow-sm flex items-center gap-3">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#EC4899] to-[#BE185D] flex items-center justify-center text-white text-lg font-bold">
-              FZ
+              FM
             </div>
             <div className="flex-1">
-              <h4 className="font-bold text-[var(--text-primary)]">Fatima Al Zaabi</h4>
+              <h4 className="font-bold text-[var(--text-primary)] flex items-center gap-2">
+                Fatima Al Mansouri
+                <span className="text-[10px] bg-red-100 text-red-500 px-2 py-0.5 rounded-full font-bold flex items-center gap-1"><i className="fas fa-heart"></i> Family</span>
+              </h4>
               <p className="text-xs text-[var(--text-secondary)]">Green Champion • 5m ago</p>
             </div>
             <div className="text-right">
@@ -60,10 +63,13 @@ const FriendsScreen: React.FC<Props> = ({ onBack }) => {
 
           <div className="bg-white rounded-2xl p-3 border border-[var(--border-light)] shadow-sm flex items-center gap-3">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#F59E0B] to-[#D97706] flex items-center justify-center text-white text-lg font-bold">
-              KS
+              KH
             </div>
             <div className="flex-1">
-              <h4 className="font-bold text-[var(--text-primary)]">Khalid Al Sharqi</h4>
+              <h4 className="font-bold text-[var(--text-primary)] flex items-center gap-2">
+                Khalid Al Hashemi
+                <span className="text-[10px] bg-blue-100 text-blue-500 px-2 py-0.5 rounded-full font-bold flex items-center gap-1"><i className="fas fa-user-friends"></i> Friend</span>
+              </h4>
               <p className="text-xs text-[var(--text-secondary)]">Sustainability Hero • 1h ago</p>
             </div>
             <div className="text-right">

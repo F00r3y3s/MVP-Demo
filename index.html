@@ -3,21 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <!-- Social Sharing & Branding -->
-    <title>Sustain - Powered by AINAR</title>
+
+    <title>Estidamaty - Powered by AINAR</title>
     <meta name="description" content="Sustainability | Innovation | Advisory. Track your impact and join the AINAR eco-community.">
-    
-    <!-- Open Graph / Facebook / LinkedIn -->
+
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://sustain.ainar.ae/">
-    <meta property="og:title" content="Sustain - Powered by AINAR">
+    <meta property="og:title" content="Estidamaty - Powered by AINAR">
     <meta property="og:description" content="Sustainability | Innovation | Advisory. Track your impact and earn rewards.">
     <meta property="og:image" content="https://i.ibb.co/3W8g8WJ/Alinar.png">
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="Sustain - Powered by AINAR">
+    <meta property="twitter:title" content="Estidamaty - Powered by AINAR">
     <meta property="twitter:description" content="Sustainability | Innovation | Advisory.">
     <meta property="twitter:image" content="https://i.ibb.co/3W8g8WJ/Alinar.png">
 
@@ -25,9 +22,396 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+      /* ================================================
+         iPhone 17 Pro Max Emulator — Desktop Frame
+         Screen: 430 × 932 pt (logical, same as 15 Pro Max)
+         Chassis: 462 × 968 px (16px frame each side)
+         ================================================ */
+
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      html, body {
+        width: 100%;
+        min-height: 100vh;
+      }
+
+      /* ---- Desktop Background ---- */
+      body {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-height: 100vh !important;
+        height: auto !important;
+        overflow: auto !important;
+        /* Dark premium desk */
+        background:
+          radial-gradient(ellipse at 25% 35%, rgba(6,78,59,0.18) 0%, transparent 55%),
+          radial-gradient(ellipse at 75% 65%, rgba(16,185,129,0.08) 0%, transparent 55%),
+          radial-gradient(ellipse at 50% 50%, #0c1014 0%, #060809 100%) !important;
+        background-color: #060809 !important;
+        font-family: 'Inter', -apple-system, sans-serif;
+      }
+
+      /* Dot-grid overlay on desktop */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image: radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px);
+        background-size: 28px 28px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* ---- Scene wrapper ---- */
+      .desktop-scene {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: clamp(8px, 2vh, 36px) 20px clamp(10px, 2.5vh, 48px);
+        z-index: 1;
+      }
+
+      /* ---- Device label ---- */
+      .device-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: rgba(255,255,255,0.28);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        user-select: none;
+      }
+      .device-label span { opacity: 0.7; }
+      .device-label::before,
+      .device-label::after {
+        content: '';
+        display: block;
+        width: 36px;
+        height: 1px;
+        background: rgba(255,255,255,0.12);
+      }
+
+      /* ---- Phone Chassis — Titanium Natural finish ---- */
+      .phone-chassis {
+        position: relative;
+        width: 462px;
+        height: 968px;
+        border-radius: 58px;
+        background: linear-gradient(
+          148deg,
+          #a8a8ac 0%,
+          #7a7a7e 10%,
+          #48484c 22%,
+          #2e2e30 35%,
+          #3c3c3e 48%,
+          #5c5c60 58%,
+          #7e7e82 68%,
+          #9a9a9e 78%,
+          #6e6e72 88%,
+          #4a4a4e 100%
+        );
+        box-shadow:
+          /* Outer rim highlight */
+          0 0 0 1px rgba(255,255,255,0.10),
+          /* Depth shadows */
+          0 60px 120px -20px rgba(0,0,0,0.85),
+          0 30px 60px -10px rgba(0,0,0,0.70),
+          /* Green ambient from app */
+          0 0 60px rgba(16,185,129,0.05),
+          /* Inner rim */
+          inset 0 1px 0 rgba(255,255,255,0.18),
+          inset 0 -1px 0 rgba(0,0,0,0.5),
+          inset 1px 0 0 rgba(255,255,255,0.08),
+          inset -1px 0 0 rgba(0,0,0,0.25);
+      }
+
+      /* ---- LEFT SIDE BUTTONS ---- */
+      /* Silent / Action button */
+      .btn-silent {
+        position: absolute;
+        left: -4px;
+        top: 136px;
+        width: 4px;
+        height: 30px;
+        background: linear-gradient(90deg, #1a1a1c, #404042, #282828);
+        border-radius: 3px 0 0 3px;
+        box-shadow: -2px 0 4px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+      }
+      /* Volume Up */
+      .btn-vol-up {
+        position: absolute;
+        left: -4px;
+        top: 188px;
+        width: 4px;
+        height: 58px;
+        background: linear-gradient(90deg, #1a1a1c, #404042, #282828);
+        border-radius: 3px 0 0 3px;
+        box-shadow: -2px 0 4px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+      }
+      /* Volume Down */
+      .btn-vol-down {
+        position: absolute;
+        left: -4px;
+        top: 258px;
+        width: 4px;
+        height: 58px;
+        background: linear-gradient(90deg, #1a1a1c, #404042, #282828);
+        border-radius: 3px 0 0 3px;
+        box-shadow: -2px 0 4px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+      }
+
+      /* ---- RIGHT SIDE: Power button ---- */
+      .btn-power {
+        position: absolute;
+        right: -4px;
+        top: 210px;
+        width: 4px;
+        height: 78px;
+        background: linear-gradient(270deg, #1a1a1c, #404042, #282828);
+        border-radius: 0 3px 3px 0;
+        box-shadow: 2px 0 4px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+      }
+
+      /* ---- Black inner bezel ---- */
+      .phone-bezel {
+        position: absolute;
+        inset: 8px;
+        background: #0a0a0a;
+        border-radius: 51px;
+        box-shadow:
+          inset 0 0 0 1px rgba(0,0,0,0.9),
+          inset 0 0 24px rgba(0,0,0,0.6);
+      }
+
+      /* ---- Screen area ---- */
+      .phone-screen {
+        position: absolute;
+        inset: 12px;
+        background: #000;
+        border-radius: 46px;
+        overflow: hidden;
+        /* Thin screen edge */
+        box-shadow:
+          inset 0 0 0 0.5px rgba(255,255,255,0.06),
+          inset 0 1px 0 rgba(255,255,255,0.05);
+      }
+
+      /* Glass reflection sheen */
+      .phone-screen::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          155deg,
+          rgba(255,255,255,0.05) 0%,
+          rgba(255,255,255,0.02) 30%,
+          transparent 60%
+        );
+        border-radius: inherit;
+        pointer-events: none;
+        z-index: 1000;
+      }
+
+      /* ---- Dynamic Island ---- */
+      .dynamic-island {
+        position: absolute;
+        top: 13px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 122px;
+        height: 35px;
+        background: #000;
+        border-radius: 20px;
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 0 11px 0 0;
+        gap: 6px;
+        box-shadow:
+          0 0 0 1px rgba(255,255,255,0.07),
+          0 2px 8px rgba(0,0,0,0.8),
+          inset 0 1px 0 rgba(255,255,255,0.04);
+      }
+      /* FaceID / lidar sensor dot */
+      .di-sensor {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 35%, #1e3a5f, #080e18);
+        box-shadow:
+          0 0 0 1px rgba(255,255,255,0.05),
+          inset 0 0 3px rgba(30,100,200,0.4);
+      }
+      /* Front camera lens */
+      .di-camera {
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, #1a3050, #050c18);
+        box-shadow:
+          0 0 0 1.5px rgba(255,255,255,0.06),
+          inset 0 0 4px rgba(20,80,180,0.5);
+        position: relative;
+      }
+      /* Lens glint */
+      .di-camera::after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 3px;
+        height: 3px;
+        background: rgba(255,255,255,0.25);
+        border-radius: 50%;
+      }
+
+      /* ---- React App Root ---- */
+      #root {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: none !important;
+        overflow: hidden !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+      }
+
+      /* ---- Home Indicator ---- */
+      .home-indicator {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 134px;
+        height: 5px;
+        background: rgba(255,255,255,0.25);
+        border-radius: 3px;
+        z-index: 200;
+        pointer-events: none;
+      }
+
+      /* ---- Bottom caption ---- */
+      .device-caption {
+        margin-top: 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        color: rgba(255,255,255,0.18);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        user-select: none;
+      }
+      .device-caption .dot {
+        width: 3px;
+        height: 3px;
+        background: rgba(255,255,255,0.15);
+        border-radius: 50%;
+      }
+
+      /* ---- Responsive: JS sets --phone-scale on :root ---- */
+      .phone-chassis {
+        transform-origin: top center;
+        transform: scale(var(--phone-scale, 1));
+      }
+      .device-label, .device-caption {
+        transform: scale(clamp(0.75, var(--phone-scale, 1), 1));
+        transform-origin: center;
+      }
+    </style>
 </head>
-<body class="flex justify-center items-center h-screen w-screen bg-gray-900">
-    <div id="root" class="w-full h-full max-w-[430px] bg-[#F9FAFB] overflow-hidden relative shadow-2xl mx-auto"></div>
+<body>
+    <div class="desktop-scene">
+
+      <!-- Device label -->
+      <div class="device-label">
+        <span>iPhone 17 Pro Max</span>
+      </div>
+
+      <!-- Phone chassis -->
+      <div class="phone-chassis">
+
+        <!-- Side buttons -->
+        <div class="btn-silent"></div>
+        <div class="btn-vol-up"></div>
+        <div class="btn-vol-down"></div>
+        <div class="btn-power"></div>
+
+        <!-- Black inner bezel -->
+        <div class="phone-bezel"></div>
+
+        <!-- Screen -->
+        <div class="phone-screen">
+
+          <!-- Dynamic Island -->
+          <div class="dynamic-island">
+            <div class="di-sensor"></div>
+            <div class="di-camera"></div>
+          </div>
+
+          <!-- React App -->
+          <div id="root"></div>
+
+          <!-- Home indicator -->
+          <div class="home-indicator"></div>
+
+        </div><!-- /phone-screen -->
+      </div><!-- /phone-chassis -->
+
+      <!-- Bottom caption -->
+      <div class="device-caption">
+        <span>Estidamaty</span>
+        <div class="dot"></div>
+        <span>Powered by AINAR</span>
+        <div class="dot"></div>
+        <span>Demo Build</span>
+      </div>
+
+    </div><!-- /desktop-scene -->
+
+    <script>
+      /* Dynamic phone scale — runs before React mounts to avoid flash */
+      (function scalePhone() {
+        const CHASSIS_H = 968;
+        const CHASSIS_W = 462;
+        const LABEL_H   = 60;  /* approx label + caption combined vertical space */
+
+        function compute() {
+          const availH = window.innerHeight - LABEL_H;
+          const availW = window.innerWidth  - 32; /* 16px side padding each */
+          const scaleH = availH / CHASSIS_H;
+          const scaleW = availW / CHASSIS_W;
+          /* Use the smaller axis so it always fits; cap at 1 (no up-scaling) */
+          const scale  = Math.min(scaleH, scaleW, 1);
+          document.documentElement.style.setProperty('--phone-scale', scale.toFixed(4));
+
+          /* Shrink the scene height to match actual rendered phone height
+             so the page doesn't over-scroll */
+          const chassis = document.querySelector('.phone-chassis');
+          if (chassis) {
+            const scene = document.querySelector('.desktop-scene');
+            if (scene) {
+              scene.style.minHeight = (CHASSIS_H * scale + LABEL_H) + 'px';
+            }
+          }
+        }
+
+        compute();
+        window.addEventListener('resize', compute);
+      })();
+    </script>
     <script type="module" src="/src/index.tsx"></script>
 </body>
 </html>

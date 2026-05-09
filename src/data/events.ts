@@ -27,17 +27,17 @@ export const EVENTS: GameEvent[] = [
         isActive: false, // Future event logic would toggle this
     },
     {
-        id: 'ramadan_giving',
-        title: 'Ramadan of Giving',
-        description: 'Double Wda points for verified food donations and zero-waste meals during the Holy Month.',
-        startDate: '2026-02-18', // Approx date
-        endDate: '2026-03-20',
+        id: 'proud_of_uae',
+        title: 'Proud of UAE 🇦🇪',
+        description: '"In the UAE, everyone is Emirati through their love for this land and their contributions to it." — HH Sheikh Mohamed bin Zayed',
+        startDate: '2026-05-01',
+        endDate: '2026-05-31',
         theme: {
-            bg: 'bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900',
-            text: 'text-amber-100',
-            icon: 'fa-moon',
+            bg: 'bg-black',
+            text: 'text-white',
+            icon: 'image:leader',
         },
-        isActive: true, // Let's make one active for demo
+        isActive: true,
     },
     {
         id: 'earth_week',

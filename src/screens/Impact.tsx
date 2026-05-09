@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ScreenName } from '../types';
 import { useAccessibility } from '../context/AccessibilityContext';
 import { useOrganization } from '../context/OrganizationContext';
+import { ComparisonTab } from '../components/ComparisonTab';
 
 interface Props {
    onNavigate: (screen: ScreenName) => void;
@@ -21,6 +22,9 @@ const ImpactScreen: React.FC<Props> = ({ onNavigate }) => {
 
    // Phase 1A Task 1.1: View Mode State for Dual Dashboard
    const [viewMode, setViewMode] = useState<ViewMode>('personal');
+   const [personalTab, setPersonalTab] = useState<'overview' | 'comparison'>('overview');
+   const [comparisonMetric, setComparisonMetric] = useState<'score' | 'trees' | 'water' | 'energy' | 'carbon'>('score');
+   const [comparisonTier, setComparisonTier] = useState<'family' | 'friends' | 'community' | 'global'>('family');
 
    // Phase 1E Task 5.1: Accessibility State
    // Phase 1E Task 5.1: Accessibility State (Now using global context)
@@ -170,13 +174,13 @@ const ImpactScreen: React.FC<Props> = ({ onNavigate }) => {
    return (
       <div className="h-full relative overflow-hidden flex flex-col">
          <div
-            className="flex-1 overflow-y-auto no-scrollbar pb-32 relative bg-[var(--bg-primary)]"
+            className="flex-1 overflow-y-auto no-scrollbar pb-10 relative bg-[var(--bg-primary)]"
             onScroll={handleScroll}
             ref={scrollRef}
          >
 
             {/* 1. Header & Controls */}
-            <div className={`sticky top-0 z-30 px-6 transition-all duration-300 ${isScrolled ? 'pt-12 pb-3 bg-white/90 backdrop-blur-xl shadow-sm' : 'pt-8 pb-2 bg-[var(--bg-primary)]'}`}>
+            <div className={`sticky top-0 z-30 px-6 transition-all duration-300 ${isScrolled ? 'pt-12 pb-3 bg-white/70 backdrop-blur-xl shadow-sm border-b border-white/20' : 'pt-8 pb-2 bg-[var(--bg-primary)]'}`}>
                {/* Phase 1E Task 5.1: Accessibility Toggle */}
                {/* Phase 1E Task 5.1: Accessibility Settings Link */}
                <button
@@ -188,7 +192,7 @@ const ImpactScreen: React.FC<Props> = ({ onNavigate }) => {
                </button>
                <div className="flex justify-between items-end mb-2">
                   <div className="flex flex-col">
-                     {!isScrolled && <span className="text-xs font-bold text-[var(--text-secondary)] mb-1 opacity-80 animate-[fadeIn_0.5s]">Welcome back, Sarah</span>}
+                     {!isScrolled && <span className="text-xs font-bold text-[var(--text-secondary)] mb-1 opacity-80 animate-[fadeIn_0.5s]">Welcome back, Noura</span>}
                      <h1 className={`font-extrabold text-[var(--text-primary)] font-jakarta tracking-tight transition-all duration-300 ${isScrolled ? 'text-xl' : 'text-3xl'}`}>Your Impact</h1>
                   </div>
 
@@ -235,8 +239,29 @@ const ImpactScreen: React.FC<Props> = ({ onNavigate }) => {
 
                {/* Phase 1D Task 4.4: Conditional Rendering */}
                {viewMode === 'personal' ? (
-                  <>
-                     {/* 2. IMPACT FORECAST (Hero Widget - Compacted) */}
+                  <div className="animate-[fadeIn_0.3s_ease-out]">
+                     {/* Sub-tab Switcher */}
+                     {/* Sub-tab Switcher - Enhanced for visibility */}
+                     <div className="flex bg-slate-100/50 p-1 rounded-2xl mb-6 border border-slate-200/30">
+                        <button 
+                           onClick={() => setPersonalTab('overview')} 
+                           className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-[11px] font-black uppercase tracking-wider transition-all ${personalTab === 'overview' ? 'bg-white text-emerald-600 shadow-md shadow-emerald-500/5 border border-emerald-50' : 'text-slate-400 hover:text-slate-500'}`}
+                        >
+                           <i className={`fas fa-layer-group text-sm ${personalTab === 'overview' ? 'text-emerald-500' : 'text-slate-300'}`}></i>
+                           Overview
+                        </button>
+                        <button 
+                           onClick={() => setPersonalTab('comparison')} 
+                           className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-[11px] font-black uppercase tracking-wider transition-all ${personalTab === 'comparison' ? 'bg-white text-emerald-600 shadow-md shadow-emerald-500/5 border border-emerald-50' : 'text-slate-400 hover:text-slate-500'}`}
+                        >
+                           <i className={`fas fa-user-friends text-sm ${personalTab === 'comparison' ? 'text-emerald-500' : 'text-slate-300'}`}></i>
+                           Comparison
+                        </button>
+                     </div>
+
+                     {personalTab === 'overview' ? (
+                        <div className="space-y-5 animate-[fadeIn_0.4s_ease-out]">
+                           {/* 2. IMPACT FORECAST (Hero Widget - Compacted) */}
                      <div
                         onClick={() => setShowForecastDetails(true)}
                         className="relative bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A] rounded-[28px] p-5 text-white shadow-xl shadow-slate-900/20 overflow-hidden cursor-pointer group transition-all active:scale-[0.98]"
@@ -423,14 +448,34 @@ const ImpactScreen: React.FC<Props> = ({ onNavigate }) => {
                         <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--bg-tertiary)] rounded-bl-full opacity-50 pointer-events-none"></div>
 
                         <div className="flex justify-between items-center mb-6 relative z-10">
-                           <div>
-                              <h3 className="text-sm font-bold text-[var(--text-primary)]">Sustainability Score</h3>
-                              <p className="text-[10px] text-[var(--text-secondary)]">Your daily impact rating</p>
+                           <div className="flex items-center gap-4">
+                              {/* Circular Progress Ring */}
+                              <div className="relative w-16 h-16 flex-shrink-0 cursor-pointer hover:scale-105 transition-transform" onClick={() => setShowScoreDetails(true)}>
+                                 <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90">
+                                    {/* Background Circle */}
+                                    <circle cx="50" cy="50" r="42" fill="none" stroke="#f1f5f9" strokeWidth="10" />
+                                    {/* Progress Circle */}
+                                    <circle 
+                                       cx="50" cy="50" r="42" fill="none" stroke="var(--forest-deep)" strokeWidth="10" 
+                                       strokeDasharray="264" 
+                                       strokeDashoffset={animate ? 264 - (264 * ((currentData.graph[activeDayIndex]?.score || 824) / 1000)) : 264} 
+                                       strokeLinecap="round" className="transition-all duration-1000 ease-out" 
+                                    />
+                                 </svg>
+                                 <div className="absolute inset-0 flex flex-col items-center justify-center">
+                                    <div className="text-sm font-black text-[var(--forest-deep)] font-jakarta leading-none">{currentData.graph[activeDayIndex]?.score || 824}</div>
+                                 </div>
+                              </div>
+                              <div>
+                                 <h3 className="text-sm font-bold text-[var(--text-primary)]">Impact Score</h3>
+                                 <div className="text-[10px] text-emerald-600 font-bold bg-emerald-50 inline-flex items-center gap-1 px-1.5 py-0.5 rounded mt-1">
+                                    <i className="fas fa-arrow-up text-[8px]"></i> 15% vs last month
+                                 </div>
+                              </div>
                            </div>
-                           <div onClick={() => setShowScoreDetails(true)} className="flex items-baseline gap-1 cursor-pointer hover:scale-105 transition-transform">
-                              <div className="text-3xl font-black text-[var(--forest-deep)] tracking-tight font-jakarta">{currentData.graph[activeDayIndex]?.score || 824}</div>
-                              <div className="text-[10px] font-bold text-green-600 bg-green-50 px-1.5 py-0.5 rounded">Excellent</div>
-                           </div>
+                           <button className="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:text-emerald-500 transition-colors focus:ring-2 focus:ring-emerald-500 focus:outline-none" aria-label="Score Details" onClick={() => setShowScoreDetails(true)}>
+                              <i className="fas fa-chevron-right text-[10px]"></i>
+                           </button>
                         </div>
 
                         {/* Interactive Graph */}
@@ -530,7 +575,62 @@ const ImpactScreen: React.FC<Props> = ({ onNavigate }) => {
                            </div>
                         ))}
                      </div>
-                  </>
+
+                     {/* 6. GLOBAL SDG CONTRIBUTIONS */}
+                     <div className="mt-5">
+                        <div className="flex justify-between items-center mb-3 px-1">
+                           <h3 className="font-black text-slate-800 text-[10px] uppercase tracking-widest">Global SDGs</h3>
+                           <button className="text-[10px] font-bold text-emerald-500">View All</button>
+                        </div>
+                        <div className="grid grid-cols-2 gap-3">
+                           {/* SDG 13: Climate Action */}
+                           <div className="bg-[#3F7E44] rounded-2xl p-3 flex flex-col justify-between text-white shadow-sm h-24 relative overflow-hidden group cursor-pointer hover:shadow-md transition-all">
+                              <div className="absolute -right-2 -bottom-2 text-white/20 text-5xl group-hover:scale-110 transition-transform"><i className="fas fa-globe"></i></div>
+                              <div className="flex items-start gap-2 relative z-10">
+                                 <div className="text-xl font-black font-jakarta">13</div>
+                                 <div className="text-[9px] font-bold uppercase leading-tight mt-0.5">Climate<br/>Action</div>
+                              </div>
+                              <div className="text-[9px] font-medium text-white/80 relative z-10">+2.5t CO₂ Offset</div>
+                           </div>
+                           
+                           {/* SDG 12: Responsible Consumption */}
+                           <div className="bg-[#BF8B2E] rounded-2xl p-3 flex flex-col justify-between text-white shadow-sm h-24 relative overflow-hidden group cursor-pointer hover:shadow-md transition-all">
+                              <div className="absolute -right-2 -bottom-2 text-white/20 text-5xl group-hover:scale-110 transition-transform"><i className="fas fa-recycle"></i></div>
+                              <div className="flex items-start gap-2 relative z-10">
+                                 <div className="text-xl font-black font-jakarta">12</div>
+                                 <div className="text-[9px] font-bold uppercase leading-tight mt-0.5">Responsible<br/>Consumption</div>
+                              </div>
+                              <div className="text-[9px] font-medium text-white/80 relative z-10">15kg Waste Saved</div>
+                           </div>
+                           
+                           {/* SDG 6: Clean Water */}
+                           <div className="bg-[#26BDE2] rounded-2xl p-3 flex flex-col justify-between text-white shadow-sm h-24 relative overflow-hidden group cursor-pointer hover:shadow-md transition-all">
+                              <div className="absolute -right-2 -bottom-2 text-white/20 text-5xl group-hover:scale-110 transition-transform"><i className="fas fa-hand-holding-water"></i></div>
+                              <div className="flex items-start gap-2 relative z-10">
+                                 <div className="text-xl font-black font-jakarta">6</div>
+                                 <div className="text-[9px] font-bold uppercase leading-tight mt-0.5">Clean Water<br/>& Sanitation</div>
+                              </div>
+                              <div className="text-[9px] font-medium text-white/80 relative z-10">240L Water Saved</div>
+                           </div>
+
+                           {/* SDG 7: Clean Energy */}
+                           <div className="bg-[#FCC30B] rounded-2xl p-3 flex flex-col justify-between text-white shadow-sm h-24 relative overflow-hidden group cursor-pointer hover:shadow-md transition-all">
+                              <div className="absolute -right-2 -bottom-2 text-white/20 text-5xl group-hover:scale-110 transition-transform"><i className="fas fa-sun"></i></div>
+                              <div className="flex items-start gap-2 relative z-10">
+                                 <div className="text-xl font-black font-jakarta">7</div>
+                                 <div className="text-[9px] font-bold uppercase leading-tight mt-0.5 text-black/80">Clean<br/>Energy</div>
+                              </div>
+                              <div className="text-[9px] font-medium text-black/60 relative z-10">45kWh Saved</div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               ) : (
+                        <div className="space-y-5 animate-[fadeIn_0.4s_ease-out]">
+                           <ComparisonTab period={period} />
+                        </div>
+                     )}
+                  </div>
                ) : (
                   <>
                      {/* Phase 1D Task 4.1: Organization Dashboard Card */}
@@ -618,9 +718,9 @@ const ImpactScreen: React.FC<Props> = ({ onNavigate }) => {
                         </div>
                         <div className="space-y-3">
                            {[
-                              { user: 'Ahmed', action: 'offset 2kg Carbon', time: '12m ago', avatar: 'AM' },
-                              { user: 'Fatima', action: 'planted a Ghaf Tree', time: '1h ago', avatar: 'FZ' },
-                              { user: 'Mike', action: 'recycled 5kg E-Waste', time: '3h ago', avatar: 'MJ' }
+                              { user: 'Ahmed', action: 'offset 2kg Carbon', time: '12m ago', avatar: 'AS' },
+                              { user: 'Fatima', action: 'planted a Ghaf Tree', time: '1h ago', avatar: 'FM' },
+                              { user: 'Noura', action: 'recycled 5kg E-Waste', time: '3h ago', avatar: 'NR' }
                            ].map((act, i) => (
                               <div key={i} className="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-xl transition-colors">
                                  <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">
@@ -1064,7 +1164,7 @@ const ImpactScreen: React.FC<Props> = ({ onNavigate }) => {
                                  <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
                                  <i className="fas fa-award text-3xl mb-2 opacity-80"></i>
                                  <div className="text-xs font-bold uppercase tracking-widest mb-1 opacity-80">Certificate of Sustainability</div>
-                                 <div className="text-lg font-black mb-1">Sarah Johnson</div>
+                                 <div className="text-lg font-black mb-1">Noura Al Zaabi</div>
                                  <div className="text-sm font-medium opacity-90 mb-3">Has achieved an impact score of 824</div>
                                  <div className="flex justify-center gap-2 text-[8px] opacity-70">
                                     <span><i className="fas fa-tree"></i> 12 Trees</span>

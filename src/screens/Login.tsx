@@ -25,7 +25,7 @@ const LoginScreen: React.FC<Props> = ({ onNavigate, onBack }) => {
           <div className="w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl mx-auto flex items-center justify-center text-3xl mb-3 shadow-lg border border-white/20">
             <i className="fas fa-leaf text-[var(--emerald)]"></i>
           </div>
-          <h1 className="text-2xl font-bold font-jakarta uppercase tracking-widest">Sustain</h1>
+          <h1 className="text-2xl font-bold font-jakarta uppercase tracking-widest">Estidamaty</h1>
           <p className="opacity-70 text-[10px] font-black uppercase tracking-[0.2em] mt-1">Welcome Back</p>
         </motion.div>
 

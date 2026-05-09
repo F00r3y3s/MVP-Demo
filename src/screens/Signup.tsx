@@ -165,9 +165,9 @@ const SignupScreen: React.FC<Props> = ({ onNavigate, role, subRole }) => {
   return (
     <div className="h-full flex flex-col bg-white overflow-hidden">
       {/* Header */}
-      <div className="pt-10 px-8 text-center shrink-0">
+      <div className="pt-16 px-8 text-center shrink-0">
         <motion.h1 initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-3xl font-bold font-jakarta text-[var(--text-primary)]">
-          Join Sustain
+          Join Estidamaty
         </motion.h1>
         <div className="inline-flex items-center gap-2 px-3 py-1 bg-[var(--bg-tertiary)] rounded-full mt-3 border border-gray-100 shadow-sm">
           <i className={`fas ${roleConfig.icon} text-[var(--forest-deep)] text-[10px]`}></i>
@@ -390,10 +390,10 @@ const SignupScreen: React.FC<Props> = ({ onNavigate, role, subRole }) => {
                   className="px-1"
                 >
                   <div className="bg-white rounded-2xl px-4 py-2 border-2 border-[var(--forest-light)] transition-all">
-                    <label className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-widest block mb-0.5">Company Name</label>
+                    <label className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-widest block mb-0.5">Entity Name</label>
                     <input
                       type="text"
-                      placeholder="Search company..."
+                      placeholder="Search entity..."
                       value={orgName}
                       onChange={(e) => setOrgName(e.target.value)}
                       className="bg-transparent w-full outline-none text-xs text-[var(--text-primary)] font-bold"
