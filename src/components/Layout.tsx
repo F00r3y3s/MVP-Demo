@@ -72,7 +72,7 @@ const Layout: React.FC<LayoutProps> = ({ currentScreen, children, onNavigate, go
     <div className="relative w-full h-full bg-[#F8FAFC] text-slate-900 overflow-hidden flex flex-col font-jakarta">
       {/* Top Nav */}
       {displayTopNav && (
-        <div className="absolute top-0 left-0 right-0 h-[100px] pt-[45px] bg-white/70 backdrop-blur-xl border-b border-white/20 z-40 flex items-center justify-between px-6">
+        <div className="absolute top-0 left-0 right-0 h-[110px] pt-[56px] bg-white/70 backdrop-blur-xl border-b border-white/20 z-40 flex items-center justify-between px-6">
           {isHome ? (
             <div className="flex items-center gap-2">
               <div className="w-9 h-9 flex items-center justify-center rounded-xl bg-gradient-to-br from-[#10B981] to-[#059669] text-white shadow-lg shadow-emerald-200">
@@ -159,7 +159,7 @@ const Layout: React.FC<LayoutProps> = ({ currentScreen, children, onNavigate, go
           }
           lastScrollTop.current = st <= 0 ? 0 : st;
         }}
-        className={`flex-1 overflow-y-auto no-scrollbar w-full relative ${displayTopNav ? 'pt-[100px]' : ''} pb-[110px]`}
+        className={`flex-1 overflow-y-auto no-scrollbar w-full relative ${displayTopNav ? 'pt-[110px]' : ''} pb-[110px]`}
       >
         {children}
       </div>

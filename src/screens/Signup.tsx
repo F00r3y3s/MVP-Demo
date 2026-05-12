@@ -142,7 +142,7 @@ const SignupScreen: React.FC<Props> = ({ onNavigate, role, subRole }) => {
     if (isUnder18) {
       onNavigate(ScreenName.GOAL_INPUT, { isUnder18: true, subRole: 'builder' });
     } else {
-      onNavigate(ScreenName.ROLE_SELECTION, { isUnder18: false });
+      onNavigate(ScreenName.GOAL_INPUT, { isUnder18: false, role, subRole });
     }
   };
 

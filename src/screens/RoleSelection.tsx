@@ -17,7 +17,7 @@ const RoleSelectionScreen: React.FC<Props> = ({ onNavigate, onBack }) => {
     setSelectedRole(role);
     // If Individual, automatically assign 'mentor' and skip to Vision & Dreams
     if (role === 'individual') {
-      onNavigate(ScreenName.GOAL_INPUT, { role: 'individual', subRole: 'mentor' });
+      onNavigate(ScreenName.SIGNUP, { role: 'individual', subRole: 'mentor' });
     } else {
       // For Organization, move to Step 2 to pick specific org type
       setStep(2);
@@ -26,8 +26,7 @@ const RoleSelectionScreen: React.FC<Props> = ({ onNavigate, onBack }) => {
 
   const handleSubRoleSelect = (subRole: SubRoleType) => {
     setSelectedSubRole(subRole);
-    // After picking org type, move to Vision & Dreams
-    onNavigate(ScreenName.GOAL_INPUT, { role: 'organization', subRole });
+    onNavigate(ScreenName.ORG_ENTITY_PICKER, { role: 'organization', subRole });
   };
 
   const handleBack = () => {
@@ -41,7 +40,7 @@ const RoleSelectionScreen: React.FC<Props> = ({ onNavigate, onBack }) => {
   };
 
   return (
-    <div className="h-full flex flex-col bg-[var(--bg-primary)] px-6 pt-6 pb-12 relative overflow-hidden">
+    <div className="h-full flex flex-col bg-[var(--bg-primary)] px-6 pt-14 pb-12 relative overflow-hidden">
       {step === 1 && (
         <>
           <div
@@ -71,7 +70,7 @@ const RoleSelectionScreen: React.FC<Props> = ({ onNavigate, onBack }) => {
         <div className="flex-1 flex flex-col justify-center pb-24">
           <div className="mb-6 text-center animate-[slideUp_0.3s_ease-out]">
             <h1 className="text-xl font-bold text-[var(--text-primary)] font-jakarta mb-1">
-              {step === 1 ? 'Join the Movement' : 'Choose Your Path'}
+              {step === 1 ? 'Join the Movement' : 'Select National Role'}
             </h1>
             <p className="text-[var(--text-secondary)] text-[11px] font-medium leading-tight px-4">
               {step === 1 ? 'Select your primary profile style' : 'Help us customize your goal tracking'}

@@ -26,7 +26,7 @@ const AccessibilitySettings: React.FC<Props> = ({ onBack }) => {
     return (
         <div className="bg-[var(--bg-primary)] h-full flex flex-col font-jakarta">
             {/* Header */}
-            <div className="bg-white p-6 border-b border-[var(--border-light)] flex items-center gap-4 sticky top-0 z-10 shadow-sm">
+            <div className="bg-white px-6 pt-14 pb-6 border-b border-[var(--border-light)] flex items-center gap-4 sticky top-0 z-10 shadow-sm">
                 <button onClick={onBack} className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-colors">
                     <i className="fas fa-arrow-left"></i>
                 </button>

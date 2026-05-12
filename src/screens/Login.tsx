@@ -13,7 +13,7 @@ const LoginScreen: React.FC<Props> = ({ onNavigate, onBack }) => {
     <div className="h-full flex flex-col bg-white overflow-hidden pb-12">
       {/* Header - Compact and Elegant */}
       <div className="h-[25vh] bg-gradient-to-br from-[var(--forest-deep)] to-[var(--teal)] relative rounded-b-[40px] flex items-center justify-center shrink-0 shadow-xl overflow-hidden">
-        <button onClick={onBack} className="absolute top-12 left-6 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/30 transition-colors z-20">
+        <button onClick={onBack} className="absolute top-14 left-6 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/30 transition-colors z-20">
           <i className="fas fa-arrow-left text-sm"></i>
         </button>
 
@@ -93,9 +93,9 @@ const LoginScreen: React.FC<Props> = ({ onNavigate, onBack }) => {
         </div>
 
         <div className="mt-4 text-center">
-          <p className="text-sm text-[var(--text-secondary)] font-medium">
-            Don't have an account? <button onClick={() => onNavigate(ScreenName.SIGNUP)} className="font-extrabold text-[var(--forest-light)] uppercase ml-1 hover:underline underline-offset-4">Sign Up</button>
-          </p>
+          <h3 className="text-sm text-[var(--text-secondary)] font-medium">
+            Don't have an account? <button onClick={() => onNavigate(ScreenName.ROLE_SELECTION)} className="font-extrabold text-[var(--forest-light)] uppercase ml-1 hover:underline underline-offset-4">Sign Up</button>
+          </h3>
         </div>
       </div>
     </div>

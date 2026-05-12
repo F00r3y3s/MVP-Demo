@@ -20,13 +20,34 @@ import SDGDetailsScreen from './screens/SDGDetails';
 import MarketplaceScreen from './screens/Marketplace';
 import PODSettingsScreen from './screens/PODSettings';
 import AccessibilitySettings from './screens/AccessibilitySettings';
+
+// Org-path screens
+import OrgEntityPicker from './screens/organization/OrgEntityPicker';
+import OrgOnboardingStrategicGoals from './screens/organization/OrgOnboardingStrategicGoals';
+import OrgOnboardingImpactAreas from './screens/organization/OrgOnboardingImpactAreas';
+import OrgOnboardingPace from './screens/organization/OrgOnboardingPace';
+import OrgDashboard from './screens/organization/OrgDashboard';
+import OrgWidgetDetail from './screens/organization/OrgWidgetDetail';
+import OrgBCIIndex from './screens/organization/OrgBCIIndex';
+import OrgAIAgent from './screens/organization/OrgAIAgent';
+import OrgPolicySimulatorScreen from './screens/organization/OrgPolicySimulatorScreen';
+import OrgESGReports from './screens/organization/OrgESGReports';
+import OrgPrograms from './screens/organization/OrgPrograms';
+import OrgReports from './screens/organization/OrgReports';
+import OrgPeople from './screens/organization/OrgPeople';
+import OrgSettings from './screens/organization/OrgSettings';
+import OrgMore from './screens/organization/OrgMore';
+
+// Contexts
 import { AccessibilityProvider } from './context/AccessibilityContext';
 import { OrganizationProvider } from './context/OrganizationContext';
 import { StreakProvider } from './context/StreakContext';
 import { LevelProvider } from './context/LevelContext';
+import { OrgRouteProvider } from './context/OrgRouteContext';
+import { OrgDetailNavigatorProvider } from './context/OrgDetailNavigator';
+import { ScrollPositionProvider } from './context/ScrollPositionContext';
 
-// Placeholder for screens that are simpler modals in the new architecture but kept as screen enum for compatibility
-const PlaceholderScreen: React.FC<{ name: string, onBack?: () => void }> = ({ name, onBack }) => (
+const PlaceholderScreen: React.FC<{ name: string; onBack?: () => void }> = ({ name, onBack }) => (
   <div className="p-8 flex flex-col items-center justify-center h-full text-center">
     <div className="w-24 h-24 bg-[var(--bg-tertiary)] rounded-full flex items-center justify-center text-4xl text-[var(--text-muted)] mb-6">
       <i className="fas fa-tools"></i>
@@ -36,7 +57,26 @@ const PlaceholderScreen: React.FC<{ name: string, onBack?: () => void }> = ({ na
   </div>
 );
 
-const App: React.FC = () => {
+// All org screens that should bypass the main Layout
+const ORG_FULL_SCREENS = [
+  ScreenName.ORG_ENTITY_PICKER,
+  ScreenName.ORG_ONBOARDING_GOALS,
+  ScreenName.ORG_ONBOARDING_AREAS,
+  ScreenName.ORG_ONBOARDING_PACE,
+  ScreenName.ORG_DASHBOARD,
+  ScreenName.ORG_BCI_INDEX,
+  ScreenName.ORG_AI_AGENT,
+  ScreenName.ORG_POLICY_SIMULATOR,
+  ScreenName.ORG_ESG_REPORTS,
+  ScreenName.ORG_WIDGET_DETAIL,
+  ScreenName.ORG_PROGRAMS,
+  ScreenName.ORG_REPORTS,
+  ScreenName.ORG_PEOPLE,
+  ScreenName.ORG_SETTINGS,
+  ScreenName.ORG_MORE,
+];
+
+const AppInner: React.FC = () => {
   const [currentScreen, setCurrentScreen] = useState<ScreenName>(ScreenName.SPLASH);
   const [history, setHistory] = useState<ScreenName[]>([ScreenName.SPLASH]);
   const [navParams, setNavParams] = useState<any>({});
@@ -50,16 +90,16 @@ const App: React.FC = () => {
   const goBack = () => {
     if (history.length > 1) {
       const newHistory = [...history];
-      newHistory.pop(); // Remove current
+      newHistory.pop();
       const prevScreen = newHistory[newHistory.length - 1];
       setHistory(newHistory);
       setCurrentScreen(prevScreen);
     }
   };
 
-  // Render content based on screen
   const renderScreen = () => {
     switch (currentScreen) {
+      // ── Core flow ────────────────────────────────────────────────────────────
       case ScreenName.SPLASH:
         return <SplashScreen onFinish={() => navigate(ScreenName.ONBOARDING)} />;
       case ScreenName.ONBOARDING:
@@ -69,9 +109,43 @@ const App: React.FC = () => {
       case ScreenName.SIGNUP:
         return <SignupScreen onNavigate={navigate} role={navParams.role} subRole={navParams.subRole} />;
       case ScreenName.ROLE_SELECTION:
-        return <RoleSelectionScreen onNavigate={navigate} onBack={() => navigate(ScreenName.SIGNUP)} />;
+        return <RoleSelectionScreen onNavigate={navigate} onBack={() => navigate(ScreenName.LOGIN)} />;
       case ScreenName.GOAL_INPUT:
         return <GoalInputScreen onNavigate={navigate} onBack={goBack} />;
+
+      // ── Org path ─────────────────────────────────────────────────────────────
+      case ScreenName.ORG_ENTITY_PICKER:
+        return <OrgEntityPicker onNavigate={navigate} onBack={goBack} subRole={navParams.subRole} />;
+      case ScreenName.ORG_ONBOARDING_GOALS:
+        return <OrgOnboardingStrategicGoals onNavigate={navigate} onBack={goBack} />;
+      case ScreenName.ORG_ONBOARDING_AREAS:
+        return <OrgOnboardingImpactAreas onNavigate={navigate} onBack={goBack} />;
+      case ScreenName.ORG_ONBOARDING_PACE:
+        return <OrgOnboardingPace onNavigate={navigate} onBack={goBack} />;
+      case ScreenName.ORG_DASHBOARD:
+        return <OrgDashboard onNavigate={navigate} />;
+      case ScreenName.ORG_BCI_INDEX:
+        return <OrgBCIIndex onNavigate={navigate} />;
+      case ScreenName.ORG_AI_AGENT:
+        return <OrgAIAgent onNavigate={navigate} />;
+      case ScreenName.ORG_POLICY_SIMULATOR:
+        return <OrgPolicySimulatorScreen onNavigate={navigate} />;
+      case ScreenName.ORG_ESG_REPORTS:
+        return <OrgESGReports onNavigate={navigate} />;
+      case ScreenName.ORG_WIDGET_DETAIL:
+        return <OrgWidgetDetail onNavigate={navigate} onBack={goBack} />;
+      case ScreenName.ORG_PROGRAMS:
+        return <OrgPrograms onNavigate={navigate} onBack={goBack} />;
+      case ScreenName.ORG_REPORTS:
+        return <OrgReports onNavigate={navigate} onBack={goBack} />;
+      case ScreenName.ORG_PEOPLE:
+        return <OrgPeople onNavigate={navigate} onBack={goBack} />;
+      case ScreenName.ORG_SETTINGS:
+        return <OrgSettings onNavigate={navigate} onBack={goBack} />;
+      case ScreenName.ORG_MORE:
+        return <OrgMore onNavigate={navigate} />;
+
+      // ── Individual path ───────────────────────────────────────────────────────
       case ScreenName.HOME:
         return <HomeScreen onNavigate={navigate} />;
       case ScreenName.COMMUNITY:
@@ -94,8 +168,6 @@ const App: React.FC = () => {
         return <ChatScreen onNavigate={navigate} goBack={goBack} />;
       case ScreenName.PROFILE:
         return <ProfileScreen onNavigate={navigate} goBack={goBack} />;
-      case ScreenName.TARGET:
-        return <TargetScreen onNavigate={navigate} onBack={goBack} />;
       case ScreenName.FRIENDS:
         return <FriendsScreen onNavigate={navigate} onBack={goBack} />;
       case ScreenName.SDG_DETAILS:
@@ -112,7 +184,6 @@ const App: React.FC = () => {
     }
   };
 
-  // Screens that do NOT use the main Layout wrapper (Full screen standalone)
   const isFullScreen = [
     ScreenName.SPLASH,
     ScreenName.ONBOARDING,
@@ -124,27 +195,10 @@ const App: React.FC = () => {
     ScreenName.CHAT,
     ScreenName.SDG_DETAILS,
     ScreenName.POD_SETTINGS,
-    ScreenName.ACCESSIBILITY_SETTINGS
+    ScreenName.ACCESSIBILITY_SETTINGS,
+    ...ORG_FULL_SCREENS,
   ].includes(currentScreen);
 
-  // =============================================================================
-  // [BACKUP] ORIGINAL CODE START - Date: 2026-01-23
-  // =============================================================================
-  /*
-  if (isFullScreen) {
-    return renderScreen();
-  }
-
-  return (
-    <Layout currentScreen={currentScreen} onNavigate={navigate} goBack={goBack}>
-      {renderScreen()}
-    </Layout>
-  );
-  */
-  // [BACKUP] ORIGINAL CODE END
-  // =============================================================================
-
-  // [NEW ENHANCED CODE BELOW]
   const appContent = isFullScreen ? (
     renderScreen()
   ) : (
@@ -154,16 +208,26 @@ const App: React.FC = () => {
   );
 
   return (
-    <AccessibilityProvider>
-      <OrganizationProvider>
-        <LevelProvider>
-          <StreakProvider>
-            {appContent}
-          </StreakProvider>
-        </LevelProvider>
-      </OrganizationProvider>
-    </AccessibilityProvider>
+    <OrgDetailNavigatorProvider onNavigate={navigate} onBack={goBack}>
+      {appContent}
+    </OrgDetailNavigatorProvider>
   );
 };
+
+const App: React.FC = () => (
+  <AccessibilityProvider>
+    <OrganizationProvider>
+      <LevelProvider>
+        <StreakProvider>
+          <OrgRouteProvider>
+            <ScrollPositionProvider>
+              <AppInner />
+            </ScrollPositionProvider>
+          </OrgRouteProvider>
+        </StreakProvider>
+      </LevelProvider>
+    </OrganizationProvider>
+  </AccessibilityProvider>
+);
 
 export default App;

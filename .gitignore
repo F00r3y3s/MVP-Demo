@@ -37,3 +37,10 @@ docs/
 skills-lock.json
 *.cjs
 check_jsx.js
+
+# Agent-internal and process files
+_bmad/
+_progress/
+organization-path/
+canva-imgs/
+Task-screenshot*.png

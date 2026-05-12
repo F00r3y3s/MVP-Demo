@@ -192,7 +192,7 @@ const ImpactScreen: React.FC<Props> = ({ onNavigate }) => {
                </button>
                <div className="flex justify-between items-end mb-2">
                   <div className="flex flex-col">
-                     {!isScrolled && <span className="text-xs font-bold text-[var(--text-secondary)] mb-1 opacity-80 animate-[fadeIn_0.5s]">Welcome back, Noura</span>}
+                     {!isScrolled && <span className="text-xs font-bold text-[var(--text-secondary)] mb-1 opacity-80 animate-[fadeIn_0.5s]">Welcome back, Dr. Meryem</span>}
                      <h1 className={`font-extrabold text-[var(--text-primary)] font-jakarta tracking-tight transition-all duration-300 ${isScrolled ? 'text-xl' : 'text-3xl'}`}>Your Impact</h1>
                   </div>
 
@@ -720,7 +720,7 @@ const ImpactScreen: React.FC<Props> = ({ onNavigate }) => {
                            {[
                               { user: 'Ahmed', action: 'offset 2kg Carbon', time: '12m ago', avatar: 'AS' },
                               { user: 'Fatima', action: 'planted a Ghaf Tree', time: '1h ago', avatar: 'FM' },
-                              { user: 'Noura', action: 'recycled 5kg E-Waste', time: '3h ago', avatar: 'NR' }
+                              { user: 'Meryem', action: 'recycled 5kg E-Waste', time: '3h ago', avatar: 'MH' }
                            ].map((act, i) => (
                               <div key={i} className="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-xl transition-colors">
                                  <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">
@@ -1164,7 +1164,7 @@ const ImpactScreen: React.FC<Props> = ({ onNavigate }) => {
                                  <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
                                  <i className="fas fa-award text-3xl mb-2 opacity-80"></i>
                                  <div className="text-xs font-bold uppercase tracking-widest mb-1 opacity-80">Certificate of Sustainability</div>
-                                 <div className="text-lg font-black mb-1">Noura Al Zaabi</div>
+                                 <div className="text-lg font-black mb-1">Dr. Meryem Hamidi</div>
                                  <div className="text-sm font-medium opacity-90 mb-3">Has achieved an impact score of 824</div>
                                  <div className="flex justify-center gap-2 text-[8px] opacity-70">
                                     <span><i className="fas fa-tree"></i> 12 Trees</span>

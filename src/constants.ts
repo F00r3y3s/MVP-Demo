@@ -1,8 +1,8 @@
-import userProfileImage from './assets/user_profile.png';
+import userProfileImage from './assets/meryem-app-image.jpeg';
 
 export const USER_IMAGE_URL = userProfileImage;
-export const USER_INITIALS = 'NZ';
-export const USER_NAME = 'Noura Al Zaabi';
+export const USER_INITIALS = 'MH';
+export const USER_NAME = 'Dr. Meryem Hamidi';
 export const USER_LEVEL = 12;
 export const USER_BADGE = 'Mentor';
 
