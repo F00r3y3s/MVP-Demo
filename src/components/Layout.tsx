@@ -8,9 +8,10 @@ interface LayoutProps {
   children: React.ReactNode;
   onNavigate: (screen: ScreenName, params?: any) => void;
   goBack: () => void;
+  onSwitchPath?: () => void;
 }
 
-const Layout: React.FC<LayoutProps> = ({ currentScreen, children, onNavigate, goBack }) => {
+const Layout: React.FC<LayoutProps> = ({ currentScreen, children, onNavigate, goBack, onSwitchPath }) => {
   const [isMinimized, setIsMinimized] = useState(false);
   const [showMoreWheel, setShowMoreWheel] = useState(false);
   const [showScanPortal, setShowScanPortal] = useState(false);
@@ -94,6 +95,17 @@ const Layout: React.FC<LayoutProps> = ({ currentScreen, children, onNavigate, go
                 <i className="fas fa-fire text-orange-500 text-[10px] animate-pulse"></i>
                 <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest leading-none">12 Day Streak</span>
               </div>
+            )}
+            {onSwitchPath && (
+              <button
+                type="button"
+                onClick={onSwitchPath}
+                className="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-[var(--forest-medium)] hover:bg-emerald-100 transition-all border border-emerald-100 shadow-sm active:scale-95"
+                aria-label="Switch to organization demo"
+                title="Switch to organization"
+              >
+                <i className="fas fa-building text-sm"></i>
+              </button>
             )}
             <button onClick={() => setShowNotifications(true)} className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-400 hover:text-emerald-600 transition-all border border-slate-100 shadow-sm relative">
               <i className="fas fa-bell text-sm"></i>

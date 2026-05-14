@@ -1,5 +1,18 @@
 import React, { useState, useMemo } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  AlertTriangle,
+  BarChart3,
+  CalendarClock,
+  CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
+  ClipboardCheck,
+  Leaf,
+  Target,
+  TrendingUp,
+  Users,
+  Zap,
+} from 'lucide-react';
 import OrganizationLayout from '../../components/organization/OrganizationLayout';
 import OrgChart from '../../components/organization/OrgChart';
 import Skeleton from '../../components/organization/Skeleton';
@@ -36,12 +49,55 @@ const PROGRAMS: Program[] = [
 ];
 
 const STATUS_CHIP: Record<ProgramStatus, { bg: string; text: string; label: string }> = {
-  active:   { bg: 'bg-[var(--forest-light)]/15', text: 'text-[var(--forest-light)]', label: 'Active'   },
-  'at-risk': { bg: 'bg-amber-500/15',             text: 'text-amber-400',             label: 'At Risk'  },
-  done:     { bg: 'bg-white/8',                   text: 'text-[var(--text-muted)]',   label: 'Done'     },
+  active:   { bg: 'bg-emerald-50', text: 'text-[var(--forest-medium)]', label: 'Active'   },
+  'at-risk': { bg: 'bg-amber-50',   text: 'text-amber-700',             label: 'At Risk'  },
+  done:     { bg: 'bg-slate-100',   text: 'text-slate-500',             label: 'Done'     },
 };
 
 const FILTER_OPTIONS = ['All', 'Active', 'At Risk', 'Done'] as const;
+
+const TARGET_TREND_DATA = {
+  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+  datasets: [
+    {
+      label: 'Target completion',
+      data: [42, 48, 51, 58, 63, 68],
+      borderColor: '#059669',
+      backgroundColor: 'rgba(5,150,105,.12)',
+      borderWidth: 2.5,
+      fill: true,
+      tension: 0.42,
+      pointRadius: 3,
+      pointBackgroundColor: '#059669',
+      pointBorderColor: '#fff',
+      pointBorderWidth: 1.5,
+    },
+  ],
+};
+
+const TARGET_CATEGORY_DATA = {
+  labels: ['Energy', 'Water', 'Mobility', 'Biodiversity'],
+  datasets: [
+    {
+      data: [35, 26, 22, 17],
+      backgroundColor: ['#065F46', '#0284C7', '#F59E0B', '#7C3AED'],
+      borderWidth: 0,
+    },
+  ],
+};
+
+const targetStats = [
+  { label: '2030 targets', value: '18', detail: '6 federal priority areas', Icon: Target, color: '#059669' },
+  { label: 'On-track actions', value: '71%', detail: '+8.2% this quarter', Icon: TrendingUp, color: '#0284C7' },
+  { label: 'Teams assigned', value: '34', detail: '412 owners mapped', Icon: Users, color: '#7C3AED' },
+  { label: 'Risk items', value: '5', detail: '2 need sponsor action', Icon: AlertTriangle, color: '#D97706' },
+];
+
+const nextActions = [
+  { title: 'Finalize Scope 3 supplier baseline', due: 'Jun 2026', owner: 'Climate Office', color: '#065F46' },
+  { title: 'Approve Phase 2 smart building audits', due: 'Jul 2026', owner: 'Facilities', color: '#0284C7' },
+  { title: 'Schedule biodiversity site assessments', due: 'Sep 2026', owner: 'Environment', color: '#D97706' },
+];
 
 const OrgProgramDetail: React.FC<{ program: Program; onBack: () => void }> = ({ program, onBack }) => {
   const pct = Math.round((program.completed / program.milestones) * 100);
@@ -103,12 +159,43 @@ const OrgPrograms: React.FC<Props> = ({ onNavigate, onBack }) => {
 
   return (
     <OrganizationLayout activeScreen={ScreenName.ORG_PROGRAMS} onNavigate={onNavigate}>
-      <div ref={scrollRef} className="h-full overflow-y-auto no-scrollbar">
-        <div className="px-5 py-5 space-y-5 pb-8">
-          <div>
-            <p className="text-[10px] font-black uppercase tracking-widest text-[var(--forest-light)] mb-0.5">PROGRAMS · {PROGRAMS.filter(p => p.status === 'active').length} ACTIVE</p>
-            <h1 className="text-2xl font-black text-[var(--text-primary)] font-jakarta">Program Portfolio</h1>
-          </div>
+      <div ref={scrollRef} className="h-full overflow-y-auto no-scrollbar bg-[#EEF2EF]">
+        <div className="space-y-3 px-3.5 py-3 pb-28">
+          <header className="overflow-hidden rounded-[28px] bg-white shadow-[0_1px_4px_rgba(0,0,0,0.07),0_12px_28px_rgba(15,23,42,0.06)]">
+            <div className="bg-gradient-to-br from-[#064E3B] via-[#047857] to-[#0E7490] p-4 text-white">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-[9px] font-black uppercase tracking-[0.18em] text-white/65">Eco Target</p>
+                  <h1 className="mt-1 font-jakarta text-[26px] font-black leading-none">Target Portfolio</h1>
+                  <p className="mt-2 max-w-[250px] text-[11px] font-semibold leading-5 text-white/78">
+                    Strategic sustainability targets, milestone health, owners, and forecasted impact in one place.
+                  </p>
+                </div>
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/16">
+                  <Leaf size={24} strokeWidth={2.6} />
+                </div>
+              </div>
+
+              <div className="mt-4 grid grid-cols-3 gap-2">
+                <div className="rounded-2xl bg-white/14 p-3">
+                  <div className="text-[27px] font-black leading-none">68%</div>
+                  <div className="mt-1 text-[8px] font-black uppercase leading-tight text-white/65">Portfolio completion</div>
+                </div>
+                <div className="rounded-2xl bg-white/14 p-3">
+                  <div className="text-[27px] font-black leading-none">2026</div>
+                  <div className="mt-1 text-[8px] font-black uppercase leading-tight text-white/65">Next review window</div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => onNavigate(ScreenName.ORG_IMPACT)}
+                  className="rounded-2xl bg-white p-3 text-left text-[#065F46] active:scale-[0.98]"
+                >
+                  <BarChart3 size={18} strokeWidth={2.6} />
+                  <div className="mt-2 text-[8px] font-black uppercase leading-tight">Impact view</div>
+                </button>
+              </div>
+            </div>
+          </header>
 
           {!ready ? (
             <div className="space-y-3">
@@ -117,47 +204,153 @@ const OrgPrograms: React.FC<Props> = ({ onNavigate, onBack }) => {
             </div>
           ) : (
             <>
-              {/* Chart */}
-              <div className="rounded-2xl bg-white/5 border border-white/10 p-4">
-                <p className="text-[10px] font-black uppercase tracking-wider text-[var(--text-muted)] mb-4">Status Mix</p>
-                <OrgChart kind="doughnut" data={chartData} height={180} />
-              </div>
+              <section className="grid grid-cols-2 gap-2">
+                {targetStats.map(stat => {
+                  const Icon = stat.Icon;
+                  return (
+                    <div key={stat.label} className="rounded-2xl bg-white p-3 shadow-[0_1px_4px_rgba(0,0,0,0.07),0_8px_18px_rgba(15,23,42,0.05)]">
+                      <div className="mb-3 flex items-start justify-between gap-2">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-2xl" style={{ backgroundColor: `${stat.color}14`, color: stat.color }}>
+                          <Icon size={18} strokeWidth={2.6} />
+                        </div>
+                        <CheckCircle2 size={15} className="text-emerald-400" />
+                      </div>
+                      <div className="text-[23px] font-black leading-none text-slate-950">{stat.value}</div>
+                      <div className="mt-1 text-[8px] font-black uppercase tracking-wide text-slate-400">{stat.label}</div>
+                      <div className="mt-1 text-[9px] font-semibold text-slate-500">{stat.detail}</div>
+                    </div>
+                  );
+                })}
+              </section>
 
-              {/* Filters */}
+              <section className="grid grid-cols-2 gap-2">
+                <div className="rounded-2xl bg-white p-3.5 shadow-[0_1px_4px_rgba(0,0,0,0.07),0_8px_18px_rgba(15,23,42,0.05)]">
+                  <div className="mb-3 flex items-center justify-between">
+                    <div>
+                      <h2 className="text-xs font-black text-slate-900">Target Forecast</h2>
+                      <p className="text-[9px] font-semibold text-slate-400">Six-month completion curve</p>
+                    </div>
+                    <TrendingUp size={18} className="text-[var(--forest-medium)]" />
+                  </div>
+                  <OrgChart
+                    kind="line"
+                    data={TARGET_TREND_DATA}
+                    height={160}
+                    options={{
+                      plugins: { legend: { display: false } },
+                      scales: {
+                        x: { ticks: { color: '#94A3B8', font: { size: 8 } }, grid: { display: false }, border: { display: false } },
+                        y: { display: false, min: 35, max: 75 },
+                      },
+                    }}
+                  />
+                </div>
+
+                <div className="rounded-2xl bg-white p-3.5 shadow-[0_1px_4px_rgba(0,0,0,0.07),0_8px_18px_rgba(15,23,42,0.05)]">
+                  <div className="mb-3 flex items-center justify-between">
+                    <div>
+                      <h2 className="text-xs font-black text-slate-900">Target Mix</h2>
+                      <p className="text-[9px] font-semibold text-slate-400">Priority distribution</p>
+                    </div>
+                    <Zap size={18} className="text-amber-500" />
+                  </div>
+                  <OrgChart kind="doughnut" data={TARGET_CATEGORY_DATA} height={160} options={{ scales: {}, cutout: '68%', plugins: { legend: { display: false } } }} />
+                </div>
+              </section>
+
+              <section className="rounded-2xl bg-white p-3.5 shadow-[0_1px_4px_rgba(0,0,0,0.07),0_8px_18px_rgba(15,23,42,0.05)]">
+                <div className="mb-3 flex items-center justify-between">
+                  <div>
+                    <h2 className="text-xs font-black text-slate-900">Milestone Status Mix</h2>
+                    <p className="text-[9px] font-semibold text-slate-400">Active, watch, completed, and risk targets</p>
+                  </div>
+                  <ClipboardCheck size={18} className="text-slate-400" />
+                </div>
+                <div className="grid grid-cols-[0.9fr_1.1fr] items-center gap-3">
+                  <OrgChart kind="doughnut" data={chartData} height={130} options={{ scales: {}, cutout: '66%', plugins: { legend: { display: false } } }} />
+                  <div className="space-y-2">
+                    {[
+                      ['On Track', '3 programs', '#4A7C59'],
+                      ['Watch', '1 program', '#D97706'],
+                      ['Complete', '1 program', '#64748B'],
+                      ['Risk', '1 program', '#E11D48'],
+                    ].map(([label, value, color]) => (
+                      <div key={label} className="flex items-center justify-between gap-2">
+                        <span className="flex min-w-0 items-center gap-2">
+                          <span className="h-2 w-2 rounded-full" style={{ backgroundColor: color }} />
+                          <span className="truncate text-[10px] font-bold text-slate-600">{label}</span>
+                        </span>
+                        <span className="text-[10px] font-black text-slate-900">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
               <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
                 {FILTER_OPTIONS.map(opt => (
-                  <button key={opt} onClick={() => setFilter(opt)} className={`px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider shrink-0 transition ${filter === opt ? 'bg-[var(--forest-light)] text-white' : 'bg-white/5 text-[var(--text-muted)] border border-white/10 hover:border-white/25'}`}>{opt}</button>
+                  <button key={opt} onClick={() => setFilter(opt)} className={`shrink-0 rounded-full px-4 py-2 text-xs font-black uppercase tracking-wider transition ${filter === opt ? 'bg-[var(--forest-light)] text-white shadow-[0_6px_14px_rgba(16,185,129,.25)]' : 'border border-slate-200 bg-white text-slate-500'}`}>{opt}</button>
                 ))}
               </div>
 
-              {/* List */}
               <div className="space-y-3">
                 {filtered.map(p => {
                   const pct = Math.round((p.completed / p.milestones) * 100);
                   const s = STATUS_CHIP[p.status];
                   return (
-                    <button key={p.id} onClick={() => setDetail(p)} className="w-full text-left rounded-2xl bg-white/5 border border-white/10 p-4 hover:border-[var(--forest-light)]/30 active:scale-[0.98] transition">
+                    <button key={p.id} onClick={() => setDetail(p)} className="w-full rounded-[22px] bg-white p-4 text-left shadow-[0_1px_4px_rgba(0,0,0,0.07),0_8px_18px_rgba(15,23,42,0.05)] transition active:scale-[0.98]">
                       <div className="flex items-start justify-between gap-2 mb-2">
-                        <div>
-                          <h3 className="font-black text-sm text-[var(--text-primary)] leading-tight">{p.name}</h3>
-                          <p className="text-[10px] text-[var(--text-muted)] mt-0.5">{p.owner} · {p.milestones} milestones</p>
+                        <div className="min-w-0">
+                          <h3 className="font-black text-sm leading-tight text-slate-900">{p.name}</h3>
+                          <p className="mt-0.5 text-[10px] font-semibold text-slate-400">{p.owner} · {p.milestones} milestones</p>
                         </div>
                         <div className="flex items-center gap-1.5 shrink-0">
                           <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-1 rounded-full ${s.bg} ${s.text}`}>{s.label}</span>
-                          <ChevronRight size={14} className="text-[var(--text-muted)]" />
+                          <ChevronRight size={14} className="text-slate-300" />
                         </div>
                       </div>
-                      <div className="h-1.5 rounded-full bg-white/8 overflow-hidden">
+                      <p className="mb-3 line-clamp-2 text-[11px] font-medium leading-5 text-slate-500">{p.description}</p>
+                      <div className="h-2 overflow-hidden rounded-full bg-slate-100">
                         <div className="h-full rounded-full bg-[var(--forest-light)]" style={{ width: `${pct}%` }} />
                       </div>
-                      <p className="text-[9px] text-[var(--text-muted)] mt-1">{pct}% complete</p>
+                      <div className="mt-2 flex items-center justify-between gap-3">
+                        <p className="text-[9px] font-black uppercase tracking-wide text-slate-400">{pct}% complete</p>
+                        <span className="flex items-center gap-1 text-[9px] font-bold text-slate-500">
+                          <CalendarClock size={11} />
+                          {p.nextMilestone}
+                        </span>
+                      </div>
                     </button>
                   );
                 })}
                 {filtered.length === 0 && (
-                  <div className="text-center py-10"><p className="text-3xl mb-2">📂</p><p className="font-bold text-sm text-[var(--text-muted)]">No programs match this filter</p></div>
+                  <div className="py-10 text-center"><p className="font-bold text-sm text-slate-400">No programs match this filter</p></div>
                 )}
               </div>
+
+              <section className="rounded-2xl bg-white p-3.5 shadow-[0_1px_4px_rgba(0,0,0,0.07),0_8px_18px_rgba(15,23,42,0.05)]">
+                <div className="mb-3 flex items-center justify-between">
+                  <div>
+                    <h2 className="text-xs font-black text-slate-900">Next Sponsor Actions</h2>
+                    <p className="text-[9px] font-semibold text-slate-400">Critical moves to keep the portfolio on track</p>
+                  </div>
+                  <button type="button" onClick={onBack} className="rounded-full bg-slate-50 px-2.5 py-1 text-[9px] font-black text-slate-500">
+                    Back
+                  </button>
+                </div>
+                <div className="space-y-2">
+                  {nextActions.map(action => (
+                    <div key={action.title} className="grid grid-cols-[8px_minmax(0,1fr)_62px] items-center gap-2 rounded-2xl bg-[#F8FAFC] p-3">
+                      <span className="h-2 w-2 rounded-full" style={{ backgroundColor: action.color }} />
+                      <span className="min-w-0">
+                        <span className="block truncate text-[11px] font-black text-slate-800">{action.title}</span>
+                        <span className="block truncate text-[9px] font-semibold text-slate-400">{action.owner}</span>
+                      </span>
+                      <span className="text-right text-[9px] font-black text-slate-500">{action.due}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
             </>
           )}
         </div>

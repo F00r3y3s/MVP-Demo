@@ -1,18 +1,19 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ScreenName } from '../types';
+import { ScreenName, SubRoleType } from '../types';
 import { FocusAreaIcon } from '../components/AnimatedIcons';
 import visionDreamsBackground from '../../whisk-backgrounds/6.jpeg';
 import impactAreasBackground from '../../whisk-backgrounds/9.jpeg';
 import settingPaceBackground from '../../whisk-backgrounds/8.jpeg';
 
 interface Props {
-  onNavigate: (screen: ScreenName) => void;
+  onNavigate: (screen: ScreenName, params?: any) => void;
   onBack: () => void;
+  initialSubRole?: SubRoleType;
 }
 
-const GoalInputScreen: React.FC<Props> = ({ onNavigate, onBack }) => {
+const GoalInputScreen: React.FC<Props> = ({ onNavigate, onBack, initialSubRole }) => {
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [dream, setDream] = useState('');
   const [goals, setGoals] = useState<string[]>(['']);
@@ -90,7 +91,7 @@ const GoalInputScreen: React.FC<Props> = ({ onNavigate, onBack }) => {
   const handleNext = () => {
     if (step === 1 && dream.trim().length > 0) setStep(2);
     else if (step === 2 && selectedGoals.length >= 3) setStep(3);
-    else if (step === 3 && commitment && weeklyTime) onNavigate(ScreenName.HOME);
+    else if (step === 3 && commitment && weeklyTime) onNavigate(ScreenName.HOME, { subRole: initialSubRole });
   };
 
   const handleBackStep = () => {

@@ -1,10 +1,11 @@
 import React from 'react';
 import {
-  AlertTriangle, ArrowRight, Bot, Building2, CheckCircle2, ChevronDown, Cloud, Droplets,
+  Accessibility, AlertTriangle, ArrowRight, Bot, Building2, CheckCircle2, ChevronDown, Cloud, Droplets,
   FileBarChart, HelpCircle, Leaf, Link2, Map, Menu, Send, Settings, ShieldCheck, Sun,
   Target, Trophy, Users, X, Zap,
 } from 'lucide-react';
 import { ScreenName } from '../../types';
+import uaeMapImage from '../../assets/uae-map.png';
 import OrgChart from './OrgChart';
 import {
   BCI_COMPOSITION,
@@ -17,6 +18,7 @@ import {
 } from '../../data/orgCommandCenter';
 
 const ICONS = {
+  Accessibility,
   AlertTriangle,
   Bot,
   Building2,
@@ -82,7 +84,7 @@ export const OrgSectionCard: React.FC<{
       type="button"
       onClick={onClick}
       aria-label={ariaLabel}
-      className={`${classes} block text-left active:scale-[0.98] transition-transform`}
+      className={`${classes} block w-full text-left active:scale-[0.98] transition-transform`}
     >
       {children}
     </button>
@@ -169,36 +171,10 @@ export const BciSummaryHero: React.FC<{ compact?: boolean; onInfo?: () => void }
   );
 };
 
-export const UaeMiniMap: React.FC<{ compact?: boolean }> = ({ compact = false }) => (
-  <svg viewBox="0 0 200 175" xmlns="http://www.w3.org/2000/svg" className={compact ? 'h-auto w-full' : 'h-full w-full'}>
-    <defs>
-      <filter id="uaeDs"><feDropShadow dx="0" dy="1" stdDeviation="1.5" floodOpacity=".18" /></filter>
-      <linearGradient id="uaeSea" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#bfdbfe" stopOpacity=".5" />
-        <stop offset="100%" stopColor="#bfdbfe" stopOpacity="0" />
-      </linearGradient>
-      <linearGradient id="uaeLegend" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stopColor="#9ca3af" />
-        <stop offset="45%" stopColor="#65a30d" />
-        <stop offset="100%" stopColor="#065F46" />
-      </linearGradient>
-    </defs>
-    <rect x="0" y="0" width="200" height="55" fill="url(#uaeSea)" />
-    <path d="M6,168 L5,86 L18,70 L30,58 L45,50 L58,47 L70,50 L79,64 L81,78 L73,95 L76,116 L65,138 L46,156 L22,166 Z" fill="#065F46" opacity=".87" stroke="#fff" strokeWidth="1.2" filter="url(#uaeDs)" />
-    <path d="M79,64 L70,50 L82,40 L96,34 L110,34 L118,43 L119,58 L107,66 L93,70 Z" fill="#059669" opacity=".9" stroke="#fff" strokeWidth="1.2" filter="url(#uaeDs)" />
-    <path d="M110,34 L120,24 L133,18 L143,25 L143,40 L129,46 L118,43 Z" fill="#16a34a" opacity=".88" stroke="#fff" strokeWidth="1.2" filter="url(#uaeDs)" />
-    <path d="M133,18 L143,12 L151,16 L151,25 L143,25 Z" fill="#65a30d" opacity=".88" stroke="#fff" strokeWidth="1.2" filter="url(#uaeDs)" />
-    <path d="M151,16 L161,10 L169,14 L167,25 L151,25 Z" fill="#d97706" opacity=".85" stroke="#fff" strokeWidth="1.2" filter="url(#uaeDs)" />
-    <path d="M161,10 L175,3 L190,8 L193,26 L179,36 L167,25 L169,14 Z" fill="#ca8a04" opacity=".88" stroke="#fff" strokeWidth="1.2" filter="url(#uaeDs)" />
-    <path d="M143,40 L151,25 L167,25 L179,36 L185,56 L173,80 L155,87 L140,76 L136,56 Z" fill="#94a3b8" opacity=".85" stroke="#fff" strokeWidth="1.2" filter="url(#uaeDs)" />
-    {ORG_EMIRATES.map((e, i) => (
-      <text key={e.name} x={[97, 36, 129, 142, 179, 160, 160][i]} y={[55, 105, 36, 22, 22, 21, 58][i]} fontSize={i > 2 ? 5 : 7} fill="#fff" fontWeight="700" textAnchor="middle" fontFamily="sans-serif">{e.short}</text>
-    ))}
-    <rect x="6" y="156" width="60" height="4.5" rx="2" fill="url(#uaeLegend)" />
-    <text x="6" y="167" fontSize="4.5" fill="#94A3B8" fontFamily="sans-serif">Low</text>
-    <text x="36" y="167" fontSize="4.5" fill="#94A3B8" textAnchor="middle" fontFamily="sans-serif">BCI</text>
-    <text x="66" y="167" fontSize="4.5" fill="#94A3B8" textAnchor="end" fontFamily="sans-serif">High</text>
-  </svg>
+export const UaeMiniMap: React.FC<{ compact?: boolean; highlightedName?: string; onSelect?: (name: string) => void }> = ({ compact = false }) => (
+  <div className={compact ? 'grid w-full place-items-center overflow-hidden' : 'grid h-full w-full place-items-center overflow-hidden'} style={compact ? { aspectRatio: '220 / 164' } : undefined}>
+    <img src={uaeMapImage} alt="UAE emirates map" className="max-h-full max-w-full object-contain object-center" draggable={false} />
+  </div>
 );
 
 export const BreakdownRows: React.FC<{ rows: Array<{ label: string; value: number; color: string }> }> = ({ rows }) => (
@@ -371,23 +347,25 @@ export const DashboardActionCard: React.FC<{
 }> = ({ title, icon, badge, rows, action, onClick }) => {
   const Icon = ICONS[icon];
   return (
-    <OrgSectionCard className="h-full min-w-0 p-2.5" onClick={onClick} ariaLabel={title}>
-      <div className="mb-1.5 flex items-start justify-between gap-1">
-        <Icon size={18} className="shrink-0 text-[var(--forest-medium)]" strokeWidth={2.5} />
-        {badge && <span className="rounded-full bg-emerald-50 px-1.5 py-0.5 text-[7.5px] font-black text-[var(--forest-medium)]">{badge}</span>}
+    <OrgSectionCard className="flex h-full min-h-[178px] min-w-0 flex-col p-3" onClick={onClick} ariaLabel={title}>
+      <div className="mb-2 flex items-start justify-between gap-2">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-[var(--forest-medium)] shadow-inner">
+          <Icon size={18} strokeWidth={2.6} />
+        </div>
+        {badge && <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[8px] font-black text-[var(--forest-medium)]">{badge}</span>}
       </div>
-      <h3 className="min-h-[26px] text-[8px] font-black uppercase leading-tight tracking-[0.04em] text-slate-400">{title}</h3>
-      <div className="mt-2 space-y-1.5">
+      <h3 className="text-[10px] font-black uppercase leading-tight tracking-[0.04em] text-slate-500">{title}</h3>
+      <div className="mt-3 flex-1 space-y-2">
         {rows.map(row => (
-          <div key={row.label}>
-            <div className="text-[7.5px] font-semibold text-slate-400">{row.label}</div>
-            <div className="truncate text-[12px] font-black leading-tight text-slate-900" style={{ color: row.color }}>{row.value}</div>
+          <div key={row.label} className="rounded-xl bg-[#F8FAFC] px-2.5 py-1.5">
+            <div className="text-[8px] font-black uppercase leading-tight text-slate-400">{row.label}</div>
+            <div className="truncate text-[15px] font-black leading-tight text-slate-950" style={{ color: row.color }}>{row.value}</div>
           </div>
         ))}
       </div>
-      <div className="mt-2 flex items-center gap-1 text-[9px] font-black text-[var(--forest-medium)]">
+      <div className="mt-3 flex h-8 items-center justify-center gap-1 rounded-xl bg-emerald-50 text-[10px] font-black text-[var(--forest-medium)]">
         <span>{action}</span>
-        <ArrowRight size={10} />
+        <ArrowRight size={12} strokeWidth={2.8} />
       </div>
     </OrgSectionCard>
   );

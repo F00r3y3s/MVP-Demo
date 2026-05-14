@@ -28,15 +28,19 @@ const SelectedEntityHarness: React.FC = () => {
 };
 
 describe('OrgHeroHeader', () => {
-  it('shows the selected ministry mark and Guardian badge', async () => {
+  it('shows the selected ministry state with entity-specific filters', async () => {
     render(
       <OrgRouteProvider>
         <SelectedEntityHarness />
       </OrgRouteProvider>
     );
 
-    expect(await screen.findByText('MOEI')).toBeInTheDocument();
+    expect((await screen.findAllByText('MOEI')).length).toBeGreaterThan(0);
     expect(screen.getByText('Guardian')).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Ministry of Energy & Infrastructure' })).toBeInTheDocument();
+    expect(screen.getByText('Ministry of Energy & Infrastructure')).toBeInTheDocument();
+    expect(screen.getByText('All Departments')).toBeInTheDocument();
+    expect(screen.getByText('20 May 2025')).toBeInTheDocument();
+    expect(screen.queryByText('All Emirates')).not.toBeInTheDocument();
+    expect(screen.queryByText('All Sectors')).not.toBeInTheDocument();
   });
 });

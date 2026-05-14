@@ -15,6 +15,7 @@ const EMPTY_ONBOARDING: OrgOnboardingState = {
   selectedImpactAreas: [],
   reportingCadence: null,
   engagementStyle: null,
+  activitiesEvents: [],
 };
 
 interface OrgRouteContextValue extends OrgRouteState {

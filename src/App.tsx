@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScreenName } from './types';
+import { ScreenName, SubRoleType } from './types';
 import Layout from './components/Layout';
 import { SplashScreen, OnboardingScreen } from './screens/Onboarding';
 import SignupScreen from './screens/Signup';
@@ -30,11 +30,16 @@ import OrgDashboard from './screens/organization/OrgDashboard';
 import OrgWidgetDetail from './screens/organization/OrgWidgetDetail';
 import OrgBCIIndex from './screens/organization/OrgBCIIndex';
 import OrgAIAgent from './screens/organization/OrgAIAgent';
+import OrgAIChat from './screens/organization/OrgAIChat';
 import OrgPolicySimulatorScreen from './screens/organization/OrgPolicySimulatorScreen';
 import OrgESGReports from './screens/organization/OrgESGReports';
+import OrgSDGDetails from './screens/organization/OrgSDGDetails';
+import OrgImpact from './screens/organization/OrgImpact';
 import OrgPrograms from './screens/organization/OrgPrograms';
 import OrgReports from './screens/organization/OrgReports';
 import OrgPeople from './screens/organization/OrgPeople';
+import OrgRewards from './screens/organization/OrgRewards';
+import OrgGreenShare from './screens/organization/OrgGreenShare';
 import OrgSettings from './screens/organization/OrgSettings';
 import OrgMore from './screens/organization/OrgMore';
 
@@ -66,12 +71,17 @@ const ORG_FULL_SCREENS = [
   ScreenName.ORG_DASHBOARD,
   ScreenName.ORG_BCI_INDEX,
   ScreenName.ORG_AI_AGENT,
+  ScreenName.ORG_AI_CHAT,
   ScreenName.ORG_POLICY_SIMULATOR,
   ScreenName.ORG_ESG_REPORTS,
+  ScreenName.ORG_SDG_DETAILS,
+  ScreenName.ORG_IMPACT,
   ScreenName.ORG_WIDGET_DETAIL,
   ScreenName.ORG_PROGRAMS,
   ScreenName.ORG_REPORTS,
   ScreenName.ORG_PEOPLE,
+  ScreenName.ORG_REWARDS,
+  ScreenName.ORG_GREEN_SHARE,
   ScreenName.ORG_SETTINGS,
   ScreenName.ORG_MORE,
 ];
@@ -80,8 +90,10 @@ const AppInner: React.FC = () => {
   const [currentScreen, setCurrentScreen] = useState<ScreenName>(ScreenName.SPLASH);
   const [history, setHistory] = useState<ScreenName[]>([ScreenName.SPLASH]);
   const [navParams, setNavParams] = useState<any>({});
+  const [individualSubRole, setIndividualSubRole] = useState<SubRoleType | undefined>();
 
   const navigate = (screen: ScreenName, params?: any) => {
+    if (params?.subRole) setIndividualSubRole(params.subRole);
     setHistory(prev => [...prev, screen]);
     setCurrentScreen(screen);
     setNavParams(params || {});
@@ -95,6 +107,11 @@ const AppInner: React.FC = () => {
       setHistory(newHistory);
       setCurrentScreen(prevScreen);
     }
+  };
+
+  const switchDemoPath = () => {
+    const isOrgPath = ORG_FULL_SCREENS.includes(currentScreen);
+    navigate(isOrgPath ? ScreenName.HOME : ScreenName.ORG_DASHBOARD);
   };
 
   const renderScreen = () => {
@@ -111,7 +128,7 @@ const AppInner: React.FC = () => {
       case ScreenName.ROLE_SELECTION:
         return <RoleSelectionScreen onNavigate={navigate} onBack={() => navigate(ScreenName.LOGIN)} />;
       case ScreenName.GOAL_INPUT:
-        return <GoalInputScreen onNavigate={navigate} onBack={goBack} />;
+        return <GoalInputScreen onNavigate={navigate} onBack={goBack} initialSubRole={navParams.subRole} />;
 
       // ── Org path ─────────────────────────────────────────────────────────────
       case ScreenName.ORG_ENTITY_PICKER:
@@ -128,10 +145,16 @@ const AppInner: React.FC = () => {
         return <OrgBCIIndex onNavigate={navigate} />;
       case ScreenName.ORG_AI_AGENT:
         return <OrgAIAgent onNavigate={navigate} />;
+      case ScreenName.ORG_AI_CHAT:
+        return <OrgAIChat onNavigate={navigate} onBack={goBack} />;
       case ScreenName.ORG_POLICY_SIMULATOR:
         return <OrgPolicySimulatorScreen onNavigate={navigate} />;
       case ScreenName.ORG_ESG_REPORTS:
-        return <OrgESGReports onNavigate={navigate} />;
+        return <OrgESGReports onNavigate={navigate} initialTab={navParams.tab} />;
+      case ScreenName.ORG_SDG_DETAILS:
+        return <OrgSDGDetails onBack={goBack} initialGoalId={navParams.goalId} />;
+      case ScreenName.ORG_IMPACT:
+        return <OrgImpact onNavigate={navigate} />;
       case ScreenName.ORG_WIDGET_DETAIL:
         return <OrgWidgetDetail onNavigate={navigate} onBack={goBack} />;
       case ScreenName.ORG_PROGRAMS:
@@ -140,6 +163,10 @@ const AppInner: React.FC = () => {
         return <OrgReports onNavigate={navigate} onBack={goBack} />;
       case ScreenName.ORG_PEOPLE:
         return <OrgPeople onNavigate={navigate} onBack={goBack} />;
+      case ScreenName.ORG_REWARDS:
+        return <OrgRewards onNavigate={navigate} />;
+      case ScreenName.ORG_GREEN_SHARE:
+        return <OrgGreenShare onNavigate={navigate} />;
       case ScreenName.ORG_SETTINGS:
         return <OrgSettings onNavigate={navigate} onBack={goBack} />;
       case ScreenName.ORG_MORE:
@@ -147,7 +174,7 @@ const AppInner: React.FC = () => {
 
       // ── Individual path ───────────────────────────────────────────────────────
       case ScreenName.HOME:
-        return <HomeScreen onNavigate={navigate} />;
+        return <HomeScreen onNavigate={navigate} subRole={navParams.subRole ?? individualSubRole} />;
       case ScreenName.COMMUNITY:
         return <CommunityScreen onNavigate={navigate} initialTab={navParams.tab} />;
       case ScreenName.IMPACT:
@@ -202,7 +229,7 @@ const AppInner: React.FC = () => {
   const appContent = isFullScreen ? (
     renderScreen()
   ) : (
-    <Layout currentScreen={currentScreen} onNavigate={navigate} goBack={goBack}>
+    <Layout currentScreen={currentScreen} onNavigate={navigate} goBack={goBack} onSwitchPath={switchDemoPath}>
       {renderScreen()}
     </Layout>
   );

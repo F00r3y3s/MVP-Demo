@@ -1,51 +1,53 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { ScreenName } from '../../types';
-import { ORG_SDG_GOALS } from '../../data/orgCommandCenter';
+import { ORG_SDG_DETAILS } from '../../data/orgSdgGoals';
 
-const OrgImpactGoals: React.FC<{ onNavigate?: (screen: ScreenName) => void }> = ({ onNavigate }) => {
+const achievedGoals = ORG_SDG_DETAILS.filter(goal => goal.progress >= 75).length;
+
+const OrgImpactGoals: React.FC<{ onNavigate?: (screen: ScreenName, params?: any) => void }> = ({ onNavigate }) => {
   return (
-    <div className="bg-white rounded-2xl p-3 shadow-[0_1px_4px_rgba(0,0,0,0.07),0_4px_16px_rgba(0,0,0,0.06)] h-full flex flex-col">
-      <div className="flex items-start justify-between gap-2 mb-2">
+    <div
+      onClick={() => onNavigate?.(ScreenName.ORG_SDG_DETAILS)}
+      className="mx-3.5 rounded-[24px] border border-white bg-white/80 p-4 shadow-sm backdrop-blur-md cursor-pointer transition-all active:scale-[0.98]"
+      role="button"
+      tabIndex={0}
+      onKeyDown={event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onNavigate?.(ScreenName.ORG_SDG_DETAILS);
+        }
+      }}
+    >
+      <div className="mb-3 flex items-center justify-between px-1">
         <div>
-          <h3 className="text-[11px] font-bold text-slate-900">Global Impact Goals</h3>
-          <p className="text-[9px] text-slate-400 font-semibold mt-0.5">3/17 Achieved</p>
+          <h3 className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-slate-800">
+            <i className="fas fa-chart-column text-emerald-500" />
+            Global Impact Goals
+          </h3>
+          <p className="mt-0.5 text-[8px] font-bold uppercase tracking-tighter text-slate-400">
+            {achievedGoals}/17 Org Goals On Track
+          </p>
         </div>
-        <span className="bg-emerald-50 text-emerald-600 text-[9px] font-bold px-2 py-0.5 rounded-full border border-emerald-100 shrink-0">Active</span>
+        <div className="flex items-center gap-1 rounded-full border border-emerald-100 bg-emerald-50 px-2 py-0.5 shadow-inner">
+          <span className="h-1 w-1 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="text-[8px] font-black uppercase tracking-widest text-emerald-600">Active</span>
+        </div>
       </div>
 
-      <div className="space-y-2 flex-1">
-        {ORG_SDG_GOALS.map(sdg => (
-          <div key={sdg.id}>
-            <div className="flex items-center gap-1.5 mb-1">
-              <div className="w-[15px] h-[15px] rounded-[4px] flex items-center justify-center text-[7px] font-black text-white shrink-0" style={{ backgroundColor: sdg.color }}>
-              {sdg.id}
-            </div>
-            <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between gap-1 text-[9px] font-bold">
-                  <span className="text-slate-600 truncate">{sdg.name}</span>
-                  <span className="text-slate-700 shrink-0">{sdg.progress}%</span>
-                </div>
-              </div>
-            </div>
-            <div className="h-1 rounded-full bg-[#EEF2EF] overflow-hidden">
-              <div 
-                className="h-full rounded-full" 
-                style={{ width: `${sdg.progress}%`, backgroundColor: sdg.color }} 
-              />
-              </div>
+      <div className="grid grid-cols-3 gap-x-3 gap-y-2 px-0.5">
+        {ORG_SDG_DETAILS.map(goal => (
+          <div key={goal.number} className="relative flex h-1.5 w-full overflow-hidden rounded-full bg-gray-100/50">
+            <div className="absolute inset-0 opacity-20" style={{ backgroundColor: goal.color }} />
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: `${goal.progress}%` }}
+              className="relative h-full rounded-full"
+              style={{ backgroundColor: goal.color }}
+            />
           </div>
         ))}
       </div>
-
-      <button
-        type="button"
-        onClick={() => onNavigate?.(ScreenName.ORG_ESG_REPORTS)}
-        className="flex items-center gap-1.5 mt-3 text-[10px] font-bold text-[var(--forest-medium)] group w-full justify-center h-8 border-t border-slate-100 pt-2 active:scale-[0.98] transition-all"
-      >
-        View all SDG progress
-        <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-      </button>
     </div>
   );
 };

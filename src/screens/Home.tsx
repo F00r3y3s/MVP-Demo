@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ScreenName, Challenge } from '../types';
+import { ScreenName, Challenge, SubRoleType } from '../types';
 import { useAccessibility } from '../context/AccessibilityContext';
 import { useOrganization } from '../context/OrganizationContext';
 import aiRobot from '../assets/ai_robot.png';
@@ -12,6 +12,7 @@ import mbzPhoto from '../assets/mbz_photo.png';
 
 interface Props {
    onNavigate: (screen: ScreenName) => void;
+   subRole?: SubRoleType;
 }
 
 type UserStatus = 'online' | 'away' | 'busy';
@@ -72,7 +73,7 @@ const RESOURCES = [
    { id: 3, title: 'Sustainable Fashion', type: 'Article', icon: 'fa-tshirt', color: 'bg-purple-100 text-purple-600' },
 ];
 
-const HomeScreen: React.FC<Props> = ({ onNavigate }) => {
+const HomeScreen: React.FC<Props> = ({ onNavigate, subRole }) => {
    const { simplifiedView } = useAccessibility();
    const { isLinked, organization, department, team } = useOrganization();
    const [isOrgView, setIsOrgView] = useState(false);
@@ -92,7 +93,7 @@ const HomeScreen: React.FC<Props> = ({ onNavigate }) => {
       { id: '4', title: 'Save Water', subtitle: 'Shorter shower', icon: 'fa-faucet', type: 'daily', progress: 10, reward: 20, status: 'active' }
    ]);
 
-   const userRole = 'Mentor';
+   const userRole = subRole === 'builder' ? 'Builder' : 'Mentor';
 
    // Role Configuration for Dynamic Badge & Styling
    const roleConfig = {

@@ -147,11 +147,11 @@ const SignupScreen: React.FC<Props> = ({ onNavigate, role, subRole }) => {
   };
 
   const getRoleConfig = () => {
-    if (isUnder18) return { label: 'Young Leader', icon: 'fa-hammer' };
+    if (isUnder18) return { label: 'Builder', icon: 'fa-hammer' };
     if (!subRole) return { label: 'New Member', icon: 'fa-user-plus' };
     const config: Record<string, { label: string; icon: string }> = {
       mentor: { label: 'Green Mentor', icon: 'fa-chalkboard-teacher' },
-      builder: { label: 'Young Leader', icon: 'fa-hammer' },
+      builder: { label: 'Builder', icon: 'fa-hammer' },
       guardian: { label: 'Government', icon: 'fa-landmark' },
       pioneer: { label: 'Company', icon: 'fa-industry' },
       advocate: { label: 'NGO', icon: 'fa-hand-holding-heart' },
@@ -239,7 +239,7 @@ const SignupScreen: React.FC<Props> = ({ onNavigate, role, subRole }) => {
                 </div>
                 <p className="text-[9px] text-amber-600 font-medium mt-1 px-1 flex items-center gap-1">
                   <i className="fas fa-info-circle" />
-                  Users under 18 are registered as Young Leaders (Builder). A guardian's email is required.
+                  Users under 18 are registered as Builders. A guardian's email is required.
                 </p>
               </motion.div>
             )}

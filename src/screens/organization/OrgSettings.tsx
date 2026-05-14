@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, Bell, Info } from 'lucide-react';
+import { Accessibility } from 'lucide-react';
 import OrganizationLayout from '../../components/organization/OrganizationLayout';
 import Skeleton from '../../components/organization/Skeleton';
 import { ScreenName } from '../../types';
@@ -149,6 +149,27 @@ const OrgSettings: React.FC<Props> = ({ onNavigate, onBack }) => {
                     </div>
                   ))}
                 </div>
+              </section>
+
+              {/* Accessibility */}
+              <section>
+                <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] mb-3">Accessibility</p>
+                <button
+                  type="button"
+                  onClick={() => onNavigate(ScreenName.POD_SETTINGS)}
+                  className="w-full rounded-2xl bg-white/5 border border-white/10 p-4 flex items-center justify-between gap-4 text-left active:scale-[0.99] transition-transform"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-xl bg-indigo-500/15 text-indigo-300 flex items-center justify-center shrink-0">
+                      <Accessibility size={22} strokeWidth={2.4} />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-[var(--text-primary)]">POD Settings</p>
+                      <p className="text-[10px] text-[var(--text-muted)]">Visual, motor, cognitive, and hearing options</p>
+                    </div>
+                  </div>
+                  <span className="text-lg text-[var(--text-muted)]">›</span>
+                </button>
               </section>
 
               {/* About */}

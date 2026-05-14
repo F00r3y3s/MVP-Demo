@@ -16,13 +16,13 @@ export const SplashScreen: React.FC<SplashProps> = ({ onFinish }) => {
   // Stages: 0 = Brand Center, 1 = Brand Top + UAE Vision, 2 = Brand Top + Nature, 3 = Done
 
   useEffect(() => {
-    // Fast-paced Timeline (~4s total)
-    const timer1 = setTimeout(() => setStage(1), 800); // 0.8s: Logo moves up
-    const timer2 = setTimeout(() => setStage(2), 2500); // 2.5s: Switch to Nature
+    // Fast-paced timeline with a slightly longer second beat (~2.5s total).
+    const timer1 = setTimeout(() => setStage(1), 400); // 0.4s: Logo moves up
+    const timer2 = setTimeout(() => setStage(2), 1250); // 1.25s: Switch to Nature
     const timer3 = setTimeout(() => {
       setStage(3);
       onFinish();
-    }, 4000); // 4.0s: Finish
+    }, 2500); // 2.5s: Finish
 
     return () => {
       clearTimeout(timer1);

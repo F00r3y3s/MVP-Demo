@@ -13,12 +13,17 @@ export enum ScreenName {
   ORG_DASHBOARD = 'ORG_DASHBOARD',
   ORG_BCI_INDEX = 'ORG_BCI_INDEX',
   ORG_AI_AGENT = 'ORG_AI_AGENT',
+  ORG_AI_CHAT = 'ORG_AI_CHAT',
   ORG_POLICY_SIMULATOR = 'ORG_POLICY_SIMULATOR',
   ORG_ESG_REPORTS = 'ORG_ESG_REPORTS',
+  ORG_SDG_DETAILS = 'ORG_SDG_DETAILS',
+  ORG_IMPACT = 'ORG_IMPACT',
   ORG_WIDGET_DETAIL = 'ORG_WIDGET_DETAIL',
   ORG_PROGRAMS = 'ORG_PROGRAMS',
   ORG_REPORTS = 'ORG_REPORTS',
   ORG_PEOPLE = 'ORG_PEOPLE',
+  ORG_REWARDS = 'ORG_REWARDS',
+  ORG_GREEN_SHARE = 'ORG_GREEN_SHARE',
   ORG_SETTINGS = 'ORG_SETTINGS',
   ORG_MORE = 'ORG_MORE',
   // Individual-path screens
@@ -65,6 +70,7 @@ export interface OrgOnboardingState {
   selectedImpactAreas: string[];
   reportingCadence: string | null;
   engagementStyle: string | null;
+  activitiesEvents: string[];
 }
 
 export type ChartKind = 'line' | 'bar' | 'doughnut' | 'radar';
