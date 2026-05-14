@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { ScreenName, ChatMessage } from '../types';
 import { generateAIResponse } from '../services/geminiService';
 
@@ -18,11 +18,26 @@ const ChatScreen: React.FC<Props> = ({ goBack }) => {
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const messageCountRef = useRef(messages.length);
 
+  // Reset scroll to top on mount — no auto-scroll on initial load
+  useLayoutEffect(() => {
+    const el = scrollRef.current;
+    if (el) el.scrollTop = 0;
+  }, []);
+
+  // Only auto-scroll when new messages are actually added (not on mount)
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+    if (messages.length > messageCountRef.current || isTyping) {
+      const el = scrollRef.current;
+      if (el) {
+        el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+      }
+    }
+    messageCountRef.current = messages.length;
+  }, [messages.length, isTyping]);
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -54,7 +69,7 @@ const ChatScreen: React.FC<Props> = ({ goBack }) => {
   return (
     <div className="flex flex-col h-full bg-[var(--bg-primary)]">
       {/* Header */}
-      <div className="h-[90px] pt-[47px] bg-gradient-to-r from-[var(--forest-deep)] to-[var(--teal)] text-white px-4 flex items-center gap-3 shadow-md shrink-0">
+      <div className="pt-[60px] pb-3 bg-gradient-to-r from-[var(--forest-deep)] to-[var(--teal)] text-white px-4 flex items-center gap-3 shadow-md shrink-0">
         <button onClick={goBack} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10">
           <i className="fas fa-arrow-left"></i>
         </button>
@@ -70,7 +85,7 @@ const ChatScreen: React.FC<Props> = ({ goBack }) => {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((msg) => (
           <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
             {msg.sender === 'ai' && (
